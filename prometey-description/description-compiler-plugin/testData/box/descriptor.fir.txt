@@ -1,0 +1,14 @@
+FILE: descriptor.kt
+    package edu
+
+    public final class Edu : R|kotlin/Any| {
+        public constructor(): R|edu/Edu| {
+            super<R|kotlin/Any|>()
+        }
+
+    }
+    public final fun topLevelMyFun(): R|edu/Edu| {
+        ^topLevelMyFun R|edu/Edu.Edu|()
+    }
+    public final val myDescriptor: R|org/prometey/description/DescriptorFunction| = R|org/prometey/description/descriptorFun|<R|kotlin/reflect/KFunction0<edu/Edu>|>(::R|edu/topLevelMyFun|)
+        public get(): R|org/prometey/description/DescriptorFunction|

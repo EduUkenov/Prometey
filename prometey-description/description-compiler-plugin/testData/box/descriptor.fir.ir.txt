@@ -1,0 +1,35 @@
+FILE fqName:edu fileName:/descriptor.kt
+  PROPERTY name:myDescriptor visibility:public modality:FINAL [val]
+    FIELD PROPERTY_BACKING_FIELD name:myDescriptor type:org.prometey.description.DescriptorFunction visibility:private [final,static]
+      EXPRESSION_BODY
+        CONSTRUCTOR_CALL 'public constructor <init> (fqName: kotlin.String, parameterCount: kotlin.Int) declared in org.prometey.description.internal.PluginGeneratedDescriptorFunction' type=org.prometey.description.internal.PluginGeneratedDescriptorFunction origin=null
+          ARG fqName: CONST String type=kotlin.String value="edu.topLevelMyFun"
+          ARG parameterCount: CONST Int type=kotlin.Int value=0
+    FUN DEFAULT_PROPERTY_ACCESSOR name:<get-myDescriptor> visibility:public modality:FINAL returnType:org.prometey.description.DescriptorFunction
+      correspondingProperty: PROPERTY name:myDescriptor visibility:public modality:FINAL [val]
+      BLOCK_BODY
+        RETURN type=kotlin.Nothing from='public final fun <get-myDescriptor> (): org.prometey.description.DescriptorFunction declared in edu'
+          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:myDescriptor type:org.prometey.description.DescriptorFunction visibility:private [final,static]' type=org.prometey.description.DescriptorFunction origin=null
+  CLASS CLASS name:Edu modality:FINAL visibility:public superTypes:[kotlin.Any]
+    thisReceiver: VALUE_PARAMETER INSTANCE_RECEIVER kind:DispatchReceiver name:<this> type:edu.Edu
+    CONSTRUCTOR visibility:public returnType:edu.Edu [primary]
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS CLASS name:Edu modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
+    FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN returnType:kotlin.Boolean [fake_override,operator]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      VALUE_PARAMETER kind:Regular name:other index:1 type:kotlin.Any?
+      overridden:
+        public open fun equals (other: kotlin.Any?): kotlin.Boolean declared in kotlin.Any
+    FUN FAKE_OVERRIDE name:hashCode visibility:public modality:OPEN returnType:kotlin.Int [fake_override]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      overridden:
+        public open fun hashCode (): kotlin.Int declared in kotlin.Any
+    FUN FAKE_OVERRIDE name:toString visibility:public modality:OPEN returnType:kotlin.String [fake_override]
+      VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
+      overridden:
+        public open fun toString (): kotlin.String declared in kotlin.Any
+  FUN name:topLevelMyFun visibility:public modality:FINAL returnType:edu.Edu
+    BLOCK_BODY
+      RETURN type=kotlin.Nothing from='public final fun topLevelMyFun (): edu.Edu declared in edu'
+        CONSTRUCTOR_CALL 'public constructor <init> () declared in edu.Edu' type=edu.Edu origin=null

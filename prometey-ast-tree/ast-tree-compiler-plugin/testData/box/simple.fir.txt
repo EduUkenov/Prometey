@@ -1,0 +1,20 @@
+FILE: simple.kt
+    package foo.bar
+
+    @R|org/prometey/ast/tree/annotation/Ast|() public final fun box(): R|kotlin/String| {
+        lval result: <ERROR TYPE REF: Unresolved name: foo> = <Unresolved name: MyClass>#().<Unresolved name: foo>#()
+        ^box when () {
+            ==(R|<local>/result|, String(Hello world)) ->  {
+                String(OK)
+            }
+            else ->  {
+                <strcat>(String(Fail: ), R|<local>/result|)
+            }
+        }
+
+    }
+FILE: __GENERATED DECLARATIONS__.kt
+    package foo.bar
+
+    public final object BoxAstTree : R|kotlin/Any| {
+    }
