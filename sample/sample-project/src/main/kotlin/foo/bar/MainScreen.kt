@@ -18,6 +18,8 @@ fun MainScreen() {
     }
 }
 
+val a = MainScreenAstTree.ast
+
 @Ast
 @Composable
 fun MainComponent() {
@@ -31,7 +33,6 @@ fun MainComponent() {
 }
 
 fun test() {
-    val a = MainScreenAstTree
     val b = MainComponentAstTree
 }
 

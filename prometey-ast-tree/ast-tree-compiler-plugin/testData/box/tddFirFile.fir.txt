@@ -1,0 +1,9 @@
+FILE: tddFirFile.kt
+    package tdd.sample.firP.fileP
+
+    public final val sampleProperty: R|kotlin/String| = String(SampleProperty)
+        public get(): R|kotlin/String|
+    public final fun sampleOneFunction(): R|kotlin/Unit| {
+    }
+    public final fun sampleTwoFunction(): R|kotlin/Unit| {
+    }

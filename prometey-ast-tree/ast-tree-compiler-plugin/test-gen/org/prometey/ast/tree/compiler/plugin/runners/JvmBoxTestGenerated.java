@@ -32,4 +32,10 @@ public class JvmBoxTestGenerated extends AbstractJvmBoxTest {
   public void testSimple() {
     runTest("prometey-ast-tree/ast-tree-compiler-plugin/testData/box/simple.kt");
   }
+
+  @Test
+  @TestMetadata("tddFirFile.kt")
+  public void testTddFirFile() {
+    runTest("prometey-ast-tree/ast-tree-compiler-plugin/testData/box/tddFirFile.kt");
+  }
 }

@@ -5,34 +5,28 @@ import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.extensions.ExperimentalTopLevelDeclarationsGenerationApi
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationPredicateRegistrar
-import org.jetbrains.kotlin.fir.extensions.predicateBasedProvider
+import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
+import org.jetbrains.kotlin.fir.plugin.createMemberProperty
 import org.jetbrains.kotlin.fir.plugin.createTopLevelClass
 import org.jetbrains.kotlin.fir.symbols.SymbolInternals
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassLikeSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirFunctionSymbol
+import org.jetbrains.kotlin.fir.symbols.impl.FirPropertySymbol
+import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.prometey.ast.tree.compiler.plugin.FirAstTreePredicates
-import org.prometey.ast.tree.compiler.plugin.FirAstTreePredicates.annotatedWithAstTreeLookup
+import org.prometey.ast.tree.compiler.plugin.service.astTreeCollectPredicateProvider
 
 @OptIn(SymbolInternals::class)
 class AstTreeResolveExtension(
     session: FirSession
 ) : FirDeclarationGenerationExtension(session) {
-    val matchedAstTree by lazy {
-        session.predicateBasedProvider.getSymbolsByPredicate(annotatedWithAstTreeLookup)
-    }
-
-    fun edu() {
-        matchedAstTree.first().fir.accept(AstTreeVisitor(session))
-    }
 
     @ExperimentalTopLevelDeclarationsGenerationApi
     override fun generateTopLevelClassLikeDeclaration(classId: ClassId): FirClassLikeSymbol<*>? {
-        edu()
-
         return createTopLevelClass(
             classId = classId,
             key = AstTreeGeneratedKey,
@@ -45,39 +39,64 @@ class AstTreeResolveExtension(
     }
 
     @ExperimentalTopLevelDeclarationsGenerationApi
-    override fun getTopLevelClassIds(): Set<ClassId> = matchedAstTree.mapTo(mutableSetOf()) {
-        when (it) {
-            is FirClassSymbol -> error("//Todo сделать поддержку классов")
+    override fun getTopLevelClassIds(): Set<ClassId> {
+        return session.astTreeCollectPredicateProvider.astTreePredicate.mapTo(mutableSetOf()) {
+            when (it) {
+                is FirClassSymbol -> error("//Todo сделать поддержку классов")
 
-            is FirFunctionSymbol -> {
-                val nameCamel = it.callableId.callableName.identifier.replaceFirstChar { ch ->
-                    if (ch.isLowerCase()) ch.titlecase() else ch.toString()
+                is FirFunctionSymbol -> {
+                    val nameCamel = it.callableId.callableName.identifier.replaceFirstChar { ch ->
+                        if (ch.isLowerCase()) ch.titlecase() else ch.toString()
+                    }
+
+                    ClassId(
+                        packageFqName = it.callableId.packageName,
+                        topLevelName = Name.identifier(nameCamel + "AstTree")
+                    )
                 }
 
-                ClassId(
-                    packageFqName = it.callableId.packageName,
-                    topLevelName = Name.identifier(nameCamel + "AstTree")
-                )
-            }
-
-            else -> error(
-                """
+                else -> error(
+                    """
                     The AST annotation does not support this declaration: $it
                 """.trimIndent()
-            )
+                )
+            }
         }
+    }
+
+    override fun getCallableNamesForClass(
+        classSymbol: FirClassSymbol<*>,
+        context: MemberGenerationContext
+    ): Set<Name> {
+        return setOf(PropertyAstName)
+    }
+
+    override fun generateProperties(
+        callableId: CallableId,
+        context: MemberGenerationContext?
+    ): List<FirPropertySymbol> {
+        val owner = context?.owner ?: return emptyList()
+
+        val propertyAst = createMemberProperty(
+            owner = owner,
+            key = AstTreeGeneratedKey,
+            name = PropertyAstName,
+            returnType = session.builtinTypes.stringType.coneType,
+        )
+
+
+        return listOf(propertyAst.symbol)
     }
 
     override fun FirDeclarationPredicateRegistrar.registerPredicates() {
         register(FirAstTreePredicates.annotatedWithAstTree)
     }
+
+    companion object {
+        val PropertyAstName = Name.identifier("ast")
+    }
 }
 
-//companion object {
-//    val MY_CLASS_ID =
-//        ClassId(FqName.fromSegments(listOf("foo", "bar")), Name.identifier("BoxAstTree"))
-//    val FOO_ID = CallableId(MY_CLASS_ID, Name.identifier("foo"))
-//}
 
 //override fun getCallableNamesForClass(
 //    classSymbol: FirClassSymbol<*>,
