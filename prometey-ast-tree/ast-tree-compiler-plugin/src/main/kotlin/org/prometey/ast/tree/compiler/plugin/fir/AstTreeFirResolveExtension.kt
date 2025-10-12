@@ -6,24 +6,33 @@ import org.jetbrains.kotlin.fir.extensions.ExperimentalTopLevelDeclarationsGener
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationPredicateRegistrar
 import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
+import org.jetbrains.kotlin.fir.extensions.predicateBasedProvider
+import org.jetbrains.kotlin.fir.plugin.createConstructor
+import org.jetbrains.kotlin.fir.plugin.createDefaultPrivateConstructor
 import org.jetbrains.kotlin.fir.plugin.createMemberProperty
 import org.jetbrains.kotlin.fir.plugin.createTopLevelClass
 import org.jetbrains.kotlin.fir.symbols.SymbolInternals
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassLikeSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirClassSymbol
+import org.jetbrains.kotlin.fir.symbols.impl.FirConstructorSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirFunctionSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirPropertySymbol
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
+import org.jetbrains.kotlin.name.SpecialNames
+import org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey
 import org.prometey.ast.tree.compiler.plugin.FirAstTreePredicates
-import org.prometey.ast.tree.compiler.plugin.service.astTreeCollectPredicateProvider
 
 @OptIn(SymbolInternals::class)
 class AstTreeResolveExtension(
     session: FirSession
 ) : FirDeclarationGenerationExtension(session) {
+
+    val target by lazy {
+        session.predicateBasedProvider.getSymbolsByPredicate(FirAstTreePredicates.annotatedWithAstTreeLookup)
+    }
 
     @ExperimentalTopLevelDeclarationsGenerationApi
     override fun generateTopLevelClassLikeDeclaration(classId: ClassId): FirClassLikeSymbol<*>? {
@@ -34,13 +43,17 @@ class AstTreeResolveExtension(
         ).symbol
     }
 
+    override fun generateConstructors(context: MemberGenerationContext): List<FirConstructorSymbol> {
+        return listOf(createDefaultPrivateConstructor(context.owner, AstTreeGeneratedKey).symbol)
+    }
+
     override fun hasPackage(packageFqName: FqName): Boolean {
         return true
     }
 
     @ExperimentalTopLevelDeclarationsGenerationApi
     override fun getTopLevelClassIds(): Set<ClassId> {
-        return session.astTreeCollectPredicateProvider.astTreePredicate.mapTo(mutableSetOf()) {
+        return target.mapTo(mutableSetOf()) {
             when (it) {
                 is FirClassSymbol -> error("//Todo сделать поддержку классов")
 
@@ -68,7 +81,7 @@ class AstTreeResolveExtension(
         classSymbol: FirClassSymbol<*>,
         context: MemberGenerationContext
     ): Set<Name> {
-        return setOf(PropertyAstName)
+        return setOf(PropertyAstName, SpecialNames.INIT)
     }
 
     override fun generateProperties(
@@ -84,7 +97,6 @@ class AstTreeResolveExtension(
             returnType = session.builtinTypes.stringType.coneType,
         )
 
-
         return listOf(propertyAst.symbol)
     }
 
@@ -96,25 +108,3 @@ class AstTreeResolveExtension(
         val PropertyAstName = Name.identifier("ast")
     }
 }
-
-
-//override fun getCallableNamesForClass(
-//    classSymbol: FirClassSymbol<*>,
-//    context: MemberGenerationContext
-//): Set<Name> {
-//    return setOf(FOO_ID.callableName, SpecialNames.INIT)
-//}
-
-//    override fun generateFunctions(
-//        callableId: CallableId,
-//        context: MemberGenerationContext?
-//    ): List<FirNamedFunctionSymbol> {
-//        val owner = context?.owner ?: return emptyList()
-//        val function = createMemberFunction(
-//            owner,
-//            AstTreeGeneratedKey,
-//            callableId.callableName,
-//            returnType = session.builtinTypes.stringType.coneType
-//        )
-//        return listOf(function.symbol)
-//    }

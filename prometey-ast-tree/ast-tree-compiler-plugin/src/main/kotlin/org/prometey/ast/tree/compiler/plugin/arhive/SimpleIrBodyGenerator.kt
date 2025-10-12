@@ -1,4 +1,4 @@
-package org.prometey.ast.tree.compiler.plugin.ir
+package org.prometey.ast.tree.compiler.plugin.arhive
 
 import org.jetbrains.kotlin.GeneratedDeclarationKey
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.ir.expressions.IrBody
 import org.jetbrains.kotlin.ir.expressions.IrConstKind
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrReturnImpl
-import org.prometey.ast.tree.compiler.plugin.fir.AstTreeGeneratedKey
+import org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey
 
 class SimpleIrBodyGenerator(pluginContext: IrPluginContext) : AbstractTransformerForGenerator(pluginContext) {
     override fun interestedIn(key: GeneratedDeclarationKey?): Boolean {
@@ -17,7 +17,8 @@ class SimpleIrBodyGenerator(pluginContext: IrPluginContext) : AbstractTransforme
     }
 
     override fun generateBodyForFunction(function: IrSimpleFunction, key: GeneratedDeclarationKey?): IrBody {
-        val const = IrConstImpl(-1, -1, irBuiltIns.stringType, IrConstKind.String, value = "Hello world")
+        val const =
+            IrConstImpl(-1, -1, irBuiltIns.stringType, IrConstKind.String, value = "Hello world")
         val returnStatement = IrReturnImpl(-1, -1, irBuiltIns.nothingType, function.symbol, const)
         return irFactory.createBlockBody(-1, -1, listOf(returnStatement))
     }

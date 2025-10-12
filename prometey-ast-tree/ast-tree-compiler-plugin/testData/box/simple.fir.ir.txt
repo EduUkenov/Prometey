@@ -3,7 +3,7 @@ FILE fqName:foo.bar fileName:/simple.kt
     FIELD PROPERTY_BACKING_FIELD name:result type:kotlin.String visibility:private [final,static]
       EXPRESSION_BODY
         CALL 'public final fun <get-ast> (): kotlin.String declared in foo.bar.BoxAstTree' type=kotlin.String origin=GET_PROPERTY
-          ARG <this>: GET_OBJECT 'CLASS GENERATED[org.prometey.ast.tree.compiler.plugin.fir.AstTreeGeneratedKey] OBJECT name:BoxAstTree modality:FINAL visibility:public superTypes:[kotlin.Any]' type=foo.bar.BoxAstTree
+          ARG <this>: GET_OBJECT 'CLASS GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] OBJECT name:BoxAstTree modality:FINAL visibility:public superTypes:[kotlin.Any]' type=foo.bar.BoxAstTree
     FUN DEFAULT_PROPERTY_ACCESSOR name:<get-result> visibility:public modality:FINAL returnType:kotlin.String
       correspondingProperty: PROPERTY name:result visibility:public modality:FINAL [val]
       BLOCK_BODY
@@ -14,17 +14,21 @@ FILE fqName:foo.bar fileName:/simple.kt
       Ast
     BLOCK_BODY
 FILE fqName:foo.bar fileName:__GENERATED DECLARATIONS__.kt
-  CLASS GENERATED[org.prometey.ast.tree.compiler.plugin.fir.AstTreeGeneratedKey] OBJECT name:BoxAstTree modality:FINAL visibility:public superTypes:[kotlin.Any]
+  CLASS GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] OBJECT name:BoxAstTree modality:FINAL visibility:public superTypes:[kotlin.Any]
     thisReceiver: VALUE_PARAMETER INSTANCE_RECEIVER kind:DispatchReceiver name:<this> type:foo.bar.BoxAstTree
-    PROPERTY GENERATED[org.prometey.ast.tree.compiler.plugin.fir.AstTreeGeneratedKey] name:ast visibility:public modality:FINAL [val]
+    PROPERTY GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] name:ast visibility:public modality:FINAL [val]
       FIELD PROPERTY_BACKING_FIELD name:ast type:kotlin.String visibility:private [final]
       FUN DEFAULT_PROPERTY_ACCESSOR name:<get-ast> visibility:public modality:FINAL returnType:kotlin.String
         VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:foo.bar.BoxAstTree
-        correspondingProperty: PROPERTY GENERATED[org.prometey.ast.tree.compiler.plugin.fir.AstTreeGeneratedKey] name:ast visibility:public modality:FINAL [val]
+        correspondingProperty: PROPERTY GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] name:ast visibility:public modality:FINAL [val]
         BLOCK_BODY
           RETURN type=kotlin.Nothing from='public final fun <get-ast> (): kotlin.String declared in foo.bar.BoxAstTree'
             GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:ast type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
               receiver: GET_VAR '<this>: foo.bar.BoxAstTree declared in foo.bar.BoxAstTree.<get-ast>' type=foo.bar.BoxAstTree origin=null
+    CONSTRUCTOR GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] visibility:private returnType:foo.bar.BoxAstTree [primary]
+      BLOCK_BODY
+        DELEGATING_CONSTRUCTOR_CALL 'public constructor <init> () declared in kotlin.Any'
+        INSTANCE_INITIALIZER_CALL classDescriptor='CLASS GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] OBJECT name:BoxAstTree modality:FINAL visibility:public superTypes:[kotlin.Any]' type=kotlin.Unit
     FUN FAKE_OVERRIDE name:equals visibility:public modality:OPEN returnType:kotlin.Boolean [fake_override,operator]
       VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:kotlin.Any
       VALUE_PARAMETER kind:Regular name:other index:1 type:kotlin.Any?

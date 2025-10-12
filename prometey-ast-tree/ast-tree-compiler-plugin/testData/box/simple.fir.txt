@@ -12,4 +12,8 @@ FILE: __GENERATED DECLARATIONS__.kt
         public final val ast: R|kotlin/String|
             public get(): R|kotlin/String|
 
+        private constructor(): R|foo/bar/BoxAstTree| {
+            super<R|kotlin/Any|>()
+        }
+
     }

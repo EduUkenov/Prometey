@@ -1,15 +1,16 @@
 package org.prometey.ast.tree
 
-class RccIrFunction(
-    val name: String = "",
-) : RccIrElement {
-    lateinit var returnType: RccIrType
-    lateinit var parameters: List<RccIrValueParameters>
-}
+import org.prometey.ast.tree.name.RccFqName
 
-fun rccIrFunction(
-    name: String,
-    block: RccIrFunction.() -> Unit = {}
-): RccIrFunction = RccIrFunction(
-    name = name
-).apply(block)
+interface RccIrFunction : RccIrElement {
+
+    val fqName: RccFqName
+
+    val parametersType: List<RccIrType>
+
+    val returnType: RccIrType
+
+    val extensionType: RccIrType?
+
+    val body: RccIrBody
+}

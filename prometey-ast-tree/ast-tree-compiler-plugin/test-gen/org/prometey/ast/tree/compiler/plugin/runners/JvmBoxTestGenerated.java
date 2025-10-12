@@ -22,20 +22,8 @@ public class JvmBoxTestGenerated extends AbstractJvmBoxTest {
   }
 
   @Test
-  @TestMetadata("descriptor.kt")
-  public void testDescriptor() {
-    runTest("prometey-ast-tree/ast-tree-compiler-plugin/testData/box/descriptor.kt");
-  }
-
-  @Test
   @TestMetadata("simple.kt")
   public void testSimple() {
     runTest("prometey-ast-tree/ast-tree-compiler-plugin/testData/box/simple.kt");
-  }
-
-  @Test
-  @TestMetadata("tddFirFile.kt")
-  public void testTddFirFile() {
-    runTest("prometey-ast-tree/ast-tree-compiler-plugin/testData/box/tddFirFile.kt");
   }
 }
