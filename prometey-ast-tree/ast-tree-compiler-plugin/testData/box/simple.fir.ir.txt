@@ -1,13 +1,4 @@
 FILE fqName:foo.bar fileName:/simple.kt
-  PROPERTY name:result visibility:public modality:FINAL [val]
-    FIELD PROPERTY_BACKING_FIELD name:result type:foo.bar.BoxAstTree visibility:private [final,static]
-      EXPRESSION_BODY
-        GET_OBJECT 'CLASS GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] OBJECT name:BoxAstTree modality:FINAL visibility:public superTypes:[kotlin.Any]' type=foo.bar.BoxAstTree
-    FUN DEFAULT_PROPERTY_ACCESSOR name:<get-result> visibility:public modality:FINAL returnType:foo.bar.BoxAstTree
-      correspondingProperty: PROPERTY name:result visibility:public modality:FINAL [val]
-      BLOCK_BODY
-        RETURN type=kotlin.Nothing from='public final fun <get-result> (): foo.bar.BoxAstTree declared in foo.bar'
-          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:result type:foo.bar.BoxAstTree visibility:private [final,static]' type=foo.bar.BoxAstTree origin=null
   FUN name:box visibility:public modality:FINAL returnType:kotlin.Unit
     annotations:
       Ast
@@ -16,15 +7,15 @@ FILE fqName:foo.bar fileName:__GENERATED DECLARATIONS__.kt
   CLASS GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] OBJECT name:BoxAstTree modality:FINAL visibility:public superTypes:[kotlin.Any]
     thisReceiver: VALUE_PARAMETER INSTANCE_RECEIVER kind:DispatchReceiver name:<this> type:foo.bar.BoxAstTree
     PROPERTY GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] name:ast visibility:public modality:FINAL [val]
-      FIELD PROPERTY_BACKING_FIELD name:ast type:kotlin.String visibility:private [final]
+      FIELD PROPERTY_BACKING_FIELD name:ast type:org.prometey.ast.tree.RccIrTree visibility:private [final]
         EXPRESSION_BODY
-          CONST String type=kotlin.String value=""
-      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-ast> visibility:public modality:FINAL returnType:kotlin.String
+          CONSTRUCTOR_CALL 'public constructor <init> () declared in org.prometey.ast.tree.internal.RccIrTreeImpl' type=org.prometey.ast.tree.internal.RccIrTreeImpl origin=null
+      FUN DEFAULT_PROPERTY_ACCESSOR name:<get-ast> visibility:public modality:FINAL returnType:org.prometey.ast.tree.RccIrTree
         VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:foo.bar.BoxAstTree
         correspondingProperty: PROPERTY GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] name:ast visibility:public modality:FINAL [val]
         BLOCK_BODY
-          RETURN type=kotlin.Nothing from='public final fun <get-ast> (): kotlin.String declared in foo.bar.BoxAstTree'
-            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:ast type:kotlin.String visibility:private [final]' type=kotlin.String origin=null
+          RETURN type=kotlin.Nothing from='public final fun <get-ast> (): org.prometey.ast.tree.RccIrTree declared in foo.bar.BoxAstTree'
+            GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:ast type:org.prometey.ast.tree.RccIrTree visibility:private [final]' type=org.prometey.ast.tree.RccIrTree origin=null
               receiver: GET_VAR '<this>: foo.bar.BoxAstTree declared in foo.bar.BoxAstTree.<get-ast>' type=foo.bar.BoxAstTree origin=null
     CONSTRUCTOR GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] visibility:private returnType:foo.bar.BoxAstTree [primary]
       BLOCK_BODY

@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationPredicateRegistrar
 import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
 import org.jetbrains.kotlin.fir.extensions.predicateBasedProvider
+import org.jetbrains.kotlin.fir.plugin.createConeType
 import org.jetbrains.kotlin.fir.plugin.createDefaultPrivateConstructor
 import org.jetbrains.kotlin.fir.plugin.createMemberProperty
 import org.jetbrains.kotlin.fir.plugin.createTopLevelClass
@@ -22,6 +23,7 @@ import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.SpecialNames
 import org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey
+import org.prometey.ast.tree.compiler.plugin.EntityNames
 import org.prometey.ast.tree.compiler.plugin.FirAstTreePredicates
 
 @OptIn(SymbolInternals::class)
@@ -42,12 +44,26 @@ class AstTreeResolveExtension(
         ).symbol
     }
 
+    override fun hasPackage(packageFqName: FqName): Boolean = true
+
     override fun generateConstructors(context: MemberGenerationContext): List<FirConstructorSymbol> {
         return listOf(createDefaultPrivateConstructor(context.owner, AstTreeGeneratedKey).symbol)
     }
 
-    override fun hasPackage(packageFqName: FqName): Boolean {
-        return true
+    override fun generateProperties(
+        callableId: CallableId,
+        context: MemberGenerationContext?
+    ): List<FirPropertySymbol> {
+        val owner = context?.owner ?: return emptyList()
+
+        val propertyAst = createMemberProperty(
+            owner = owner,
+            key = AstTreeGeneratedKey,
+            name = PropertyAstName,
+            returnType = EntityNames.rccIrTree.createConeType(session),
+        )
+
+        return listOf(propertyAst.symbol)
     }
 
     @ExperimentalTopLevelDeclarationsGenerationApi
@@ -81,22 +97,6 @@ class AstTreeResolveExtension(
         context: MemberGenerationContext
     ): Set<Name> {
         return setOf(PropertyAstName, SpecialNames.INIT)
-    }
-
-    override fun generateProperties(
-        callableId: CallableId,
-        context: MemberGenerationContext?
-    ): List<FirPropertySymbol> {
-        val owner = context?.owner ?: return emptyList()
-
-        val propertyAst = createMemberProperty(
-            owner = owner,
-            key = AstTreeGeneratedKey,
-            name = PropertyAstName,
-            returnType = session.builtinTypes.stringType.coneType,
-        )
-
-        return listOf(propertyAst.symbol)
     }
 
     override fun FirDeclarationPredicateRegistrar.registerPredicates() {

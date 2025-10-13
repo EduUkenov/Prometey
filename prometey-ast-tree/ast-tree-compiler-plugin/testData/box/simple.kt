@@ -6,5 +6,3 @@ import org.prometey.ast.tree.annotation.Ast
 fun box() {
 
 }
-
-val result = BoxAstTree.ast
