@@ -3,8 +3,8 @@ FILE: simple.kt
 
     @R|org/prometey/ast/tree/annotation/Ast|() public final fun box(): R|kotlin/Unit| {
     }
-    public final val result: R|kotlin/String| = Q|foo/bar/BoxAstTree|.R|foo/bar/BoxAstTree.ast|
-        public get(): R|kotlin/String|
+    public final val result: R|foo/bar/BoxAstTree| = Q|foo/bar/BoxAstTree|
+        public get(): R|foo/bar/BoxAstTree|
 FILE: __GENERATED DECLARATIONS__.kt
     package foo.bar
 

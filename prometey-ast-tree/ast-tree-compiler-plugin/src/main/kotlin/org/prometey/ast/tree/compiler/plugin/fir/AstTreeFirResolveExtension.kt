@@ -7,7 +7,6 @@ import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationPredicateRegistrar
 import org.jetbrains.kotlin.fir.extensions.MemberGenerationContext
 import org.jetbrains.kotlin.fir.extensions.predicateBasedProvider
-import org.jetbrains.kotlin.fir.plugin.createConstructor
 import org.jetbrains.kotlin.fir.plugin.createDefaultPrivateConstructor
 import org.jetbrains.kotlin.fir.plugin.createMemberProperty
 import org.jetbrains.kotlin.fir.plugin.createTopLevelClass
@@ -63,8 +62,8 @@ class AstTreeResolveExtension(
                     }
 
                     ClassId(
-                        packageFqName = it.callableId.packageName,
-                        topLevelName = Name.identifier(nameCamel + "AstTree")
+                        it.callableId.packageName,
+                        Name.identifier(nameCamel + "AstTree")
                     )
                 }
 

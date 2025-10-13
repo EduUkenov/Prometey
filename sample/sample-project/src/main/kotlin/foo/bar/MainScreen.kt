@@ -33,7 +33,8 @@ fun MainComponent() {
 }
 
 fun test() {
-    val b = MainComponentAstTree
+    val b = MainComponentAstTree.ast
+    println(b)
 }
 
 fun main() {

@@ -16,7 +16,7 @@ class ExtensionRegistrarConfigurator(testServices: TestServices) :
         module: TestModule,
         configuration: CompilerConfiguration
     ) {
-        IrGenerationExtension.registerExtension(SimpleIrGenerationExtension())
         FirExtensionRegistrarAdapter.registerExtension(FirAstTreeExtensionRegistrar())
+        IrGenerationExtension.registerExtension(SimpleIrGenerationExtension())
     }
 }
