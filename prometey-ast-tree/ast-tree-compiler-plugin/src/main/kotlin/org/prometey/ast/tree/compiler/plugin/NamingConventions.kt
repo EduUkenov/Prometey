@@ -18,11 +18,7 @@ object AstTreeAnnotations {
 }
 
 internal object EntityNames {
-    val rccIrTreeImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrTreeImpl"))
 
-    val rccFqNameClassId = ClassId(internalPackageAstTreeName, Name.identifier("RccFqName"))
-    val rccNameClassId = ClassId(internalPackageAstTreeName, Name.identifier("RccName"))
-    val rccIrFunctionImplClassId = ClassId(internalPackageAstTreeName, Name.identifier("RccIrFunctionImpl"))
 }
 
 internal object AstTreeClassIds {

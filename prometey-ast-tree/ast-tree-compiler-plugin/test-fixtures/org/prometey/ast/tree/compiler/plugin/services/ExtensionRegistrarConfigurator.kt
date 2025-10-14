@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.test.model.TestModule
 import org.jetbrains.kotlin.test.services.EnvironmentConfigurator
 import org.jetbrains.kotlin.test.services.TestServices
 import org.prometey.ast.tree.compiler.plugin.fir.FirAstTreeExtensionRegistrar
-import org.prometey.ast.tree.compiler.plugin.ir.SimpleIrGenerationExtension
+import org.prometey.ast.tree.compiler.plugin.ir.AstTreeIrGenerationExtension
 
 class ExtensionRegistrarConfigurator(testServices: TestServices) :
     EnvironmentConfigurator(testServices) {
@@ -17,6 +17,6 @@ class ExtensionRegistrarConfigurator(testServices: TestServices) :
         configuration: CompilerConfiguration
     ) {
         FirExtensionRegistrarAdapter.registerExtension(FirAstTreeExtensionRegistrar())
-        IrGenerationExtension.registerExtension(SimpleIrGenerationExtension())
+        IrGenerationExtension.registerExtension(AstTreeIrGenerationExtension())
     }
 }

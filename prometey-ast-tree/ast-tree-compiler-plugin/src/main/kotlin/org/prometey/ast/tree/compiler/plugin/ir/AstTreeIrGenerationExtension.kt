@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.ir.visitors.acceptVoid
 
-class SimpleIrGenerationExtension : IrGenerationExtension {
+class AstTreeIrGenerationExtension : IrGenerationExtension {
     override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
         val transformers2 = listOf(AstTreeForBodyGenerator(pluginContext))
 
