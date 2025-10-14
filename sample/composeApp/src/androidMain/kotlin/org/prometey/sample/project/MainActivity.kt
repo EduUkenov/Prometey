@@ -15,16 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
-import org.prometey.description.descriptorFun
 import org.prometey.ast.RccApplication
 import org.prometey.ast.declaration
 import org.prometey.ast.rcc
-
-val column = descriptorFun(::Column)
+import org.prometey.description.descriptorFun
 
 class MainActivity : ComponentActivity() {
 
-    lateinit var rcc: RccApplication private set
+    lateinit var rcc: RccApplication
+        private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -82,18 +81,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
 
-            println("EduLog ${column.fqName}")
-            Column {
-                Column {
-
-                }
-            }
-
-            Column {
-                LazyColumn {
-
-                }
-            }
         }
     }
 }

@@ -9,7 +9,6 @@ class DescriptPluginComponentRegistrar : CompilerPluginRegistrar() {
 	override val supportsK2: Boolean = true
 	
 	override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
-
 		IrGenerationExtension.registerExtension(DescriptIrGenerationExtension())
 	}
 }

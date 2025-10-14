@@ -1,7 +1,5 @@
 package org.prometey.ast.tree
 
-class RccIrBody {
+interface RccIrBody : RccIrElement {
 
 }
-
-fun rccIrBody(block: RccIrBody.() -> Unit) = RccIrBody()

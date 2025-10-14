@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import org.prometey.ast.tree.RccIrTree
 import org.prometey.ast.tree.annotation.Ast
 
 @Ast
@@ -18,6 +19,8 @@ fun MainScreen() {
     }
 }
 
+val a = MainScreenAstTree.ast
+
 @Ast
 @Composable
 fun MainComponent() {
@@ -31,8 +34,8 @@ fun MainComponent() {
 }
 
 fun test() {
-    val a = MainScreenAstTree
-    val b = MainComponentAstTree
+    val b: RccIrTree = MainComponentAstTree.ast
+    println(b.toString())
 }
 
 fun main() {

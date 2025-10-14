@@ -1,4 +1,4 @@
-package org.prometey.ast.tree.compiler.plugin.fir
+package org.prometey.ast.tree.compiler.plugin
 
 import org.jetbrains.kotlin.GeneratedDeclarationKey
 

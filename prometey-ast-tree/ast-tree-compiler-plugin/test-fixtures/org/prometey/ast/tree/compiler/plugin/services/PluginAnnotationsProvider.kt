@@ -12,10 +12,15 @@ class PluginAnnotationsProvider(
 ) : EnvironmentConfigurator(testServices) {
 
     companion object {
-        private val prometeyAstTreeRuntimeClasspath =
+        private val prometeyAstTreeAnnotationRuntimeClasspath =
             System.getProperty("annotationsRuntime.classpath")
                 ?.split(File.pathSeparator)?.map(::File)
                 ?: error("Unable to get a valid classpath from 'annotationsRuntime.classpath' property")
+
+        private val prometeyAstTreeRuntimeClasspath =
+            System.getProperty("prometeyAstTreeRuntime.classpath")
+                ?.split(File.pathSeparator)?.map(::File)
+                ?: error("Unable to get a valid classpath from 'prometeyAstTreeRuntime.classpath' property")
     }
 
     override fun configureCompilerConfiguration(
@@ -23,6 +28,10 @@ class PluginAnnotationsProvider(
         module: TestModule,
     ) {
         for (file in prometeyAstTreeRuntimeClasspath) {
+            configuration.addJvmClasspathRoot(file)
+        }
+
+        for (file in prometeyAstTreeAnnotationRuntimeClasspath) {
             configuration.addJvmClasspathRoot(file)
         }
     }

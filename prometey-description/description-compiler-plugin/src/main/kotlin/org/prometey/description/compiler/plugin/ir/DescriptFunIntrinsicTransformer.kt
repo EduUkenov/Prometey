@@ -56,11 +56,6 @@ class DescriptFunIntrinsicTransformer(
         .referenceClass(EntityNames.pluginGeneratedDescriptorClass)!!
 
     override fun visitCall(expression: IrCall): IrExpression {
-        val edu1 = expression.arguments.first()
-        if (edu1 is IrFunctionExpression) {
-            println("EduLog: ${edu1.function.returnType.isString()}")
-        }
-
         if (expression.symbol == descriptorFun) {
             val descript = expression.arguments.first()
 

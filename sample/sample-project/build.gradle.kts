@@ -7,6 +7,8 @@ plugins {
 
 dependencies {
     implementation(projects.prometeyAstTree.astTreeAnnotation)
+    implementation(projects.prometeyAstTree.astTree)
+
     implementation(libs.jetbrains.compose.runtime)
     implementation(libs.jetbrains.compose.foundation)
     implementation(libs.jetbrains.compose.ui)

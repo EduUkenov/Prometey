@@ -1,9 +1,5 @@
 package org.prometey.ast.tree
 
-class RccIrLambda {
-    lateinit var body: RccIrBody
-}
+interface RccIrLambda : RccIrElement {
 
-fun rccLambda(
-    block: RccIrLambda.() -> Unit
-): RccIrLambda = RccIrLambda()
+}
