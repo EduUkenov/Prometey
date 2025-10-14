@@ -18,10 +18,33 @@ object AstTreeAnnotations {
 }
 
 internal object EntityNames {
-    val rccIrTree = ClassId(packageAstTreeName, Name.identifier("RccIrTree"))
     val rccIrTreeImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrTreeImpl"))
 
     val rccFqNameClassId = ClassId(internalPackageAstTreeName, Name.identifier("RccFqName"))
     val rccNameClassId = ClassId(internalPackageAstTreeName, Name.identifier("RccName"))
     val rccIrFunctionImplClassId = ClassId(internalPackageAstTreeName, Name.identifier("RccIrFunctionImpl"))
+}
+
+internal object AstTreeClassIds {
+    val rccIrElement = ClassId(packageAstTreeName, Name.identifier("RccIrElement"))
+
+    val rccIrName = ClassId(packageAstTreeName, Name.identifier("RccIrName"))
+    val rccIrFqName =  ClassId(packageAstTreeName, Name.identifier("RccIrName"))
+
+    val rccIrTree = ClassId(packageAstTreeName, Name.identifier("RccIrTree"))
+    val rccIrBody =  ClassId(packageAstTreeName, Name.identifier("RccIrBody"))
+    val rccIrFunction = ClassId(packageAstTreeName, Name.identifier("RccIrFunction"))
+    val rccIrLambda = ClassId(packageAstTreeName, Name.identifier("RccIrLambda"))
+    val rccIrType = ClassId(packageAstTreeName, Name.identifier("RccIrLambda"))
+
+    // implementation zone
+
+    val rccIrNameImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrNameImpl"))
+    val rccIrFqNameImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrFqNameImpl"))
+
+    val rccIrTreeImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrTreeImpl"))
+    val rccIrBodyImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrBodyImpl"))
+    val rccIrFunctionImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrFunctionImpl"))
+    val rccIrLambdaImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrLambdaImpl"))
+    val rccIrTypeImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrTypeImpl"))
 }
