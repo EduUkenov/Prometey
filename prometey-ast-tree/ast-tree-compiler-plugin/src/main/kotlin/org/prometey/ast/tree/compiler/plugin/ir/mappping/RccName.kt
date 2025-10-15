@@ -13,9 +13,9 @@ context(astTreeContext: AstTreeContext)
 fun IrBuilderWithScope.rccName(
     name: String,
 ): IrConstructorCall = IrConstructorCallImpl.fromSymbolOwner(
-    type = astTreeContext.rccIrNameImpl.defaultType,
-    constructorSymbol = astTreeContext.rccIrNameImpl.owner.primaryConstructor?.symbol
-        ?: error("Not found constructor at: ${astTreeContext.rccIrNameImpl}"),
+    type = astTreeContext.rccNameImpl.defaultType,
+    constructorSymbol = astTreeContext.rccNameImpl.owner.primaryConstructor?.symbol
+        ?: error("Not found constructor at: ${astTreeContext.rccNameImpl}"),
 ).apply {
     arguments[0] = irString(name)
 }

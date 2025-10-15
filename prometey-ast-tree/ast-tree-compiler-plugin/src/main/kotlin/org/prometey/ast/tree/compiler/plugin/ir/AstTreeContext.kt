@@ -9,11 +9,11 @@ class AstTreeContext(
     val rccIrElement = referenceClass(AstTreeClassIds.rccIrElement)
         ?: error("Not found: ${AstTreeClassIds.rccIrElement}")
 
-    val rccIrNameImpl = referenceClass(AstTreeClassIds.rccIrNameImpl)
-        ?: error("Not found: ${AstTreeClassIds.rccIrNameImpl}")
+    val rccNameImpl = referenceClass(AstTreeClassIds.rccNameImpl)
+        ?: error("Not found: ${AstTreeClassIds.rccNameImpl}")
 
-    val rccIrFqNameImpl = referenceClass(AstTreeClassIds.rccIrFqNameImpl)
-        ?: error("Not found: ${AstTreeClassIds.rccIrFqNameImpl}")
+    val rccFqNameImpl = referenceClass(AstTreeClassIds.rccFqNameImpl)
+        ?: error("Not found: ${AstTreeClassIds.rccFqNameImpl}")
 
     val rccIrTreeImpl = referenceClass(AstTreeClassIds.rccIrTreeImpl)
         ?: error("Not found: ${AstTreeClassIds.rccIrTreeImpl}")
@@ -24,9 +24,9 @@ class AstTreeContext(
     val rccIrFunctionImpl = referenceClass(AstTreeClassIds.rccIrFunctionImpl)
         ?: error("Not found: ${AstTreeClassIds.rccIrFunctionImpl}")
 
-    val rccIrLambdaImpl = referenceClass(AstTreeClassIds.rccIrLambdaImpl)
-        ?: error("Not found: ${AstTreeClassIds.rccIrLambdaImpl}")
+//    val rccIrLambdaImpl = referenceClass(AstTreeClassIds.rccIrLambdaImpl)
+//        ?: error("Not found: ${AstTreeClassIds.rccIrLambdaImpl}")
 
-    val rccIrTypeImpl =  referenceClass(AstTreeClassIds.rccIrTypeImpl)
-        ?: error("Not found: ${AstTreeClassIds.rccIrTypeImpl}")
+//    val rccIrTypeImpl = referenceClass(AstTreeClassIds.rccIrTypeImpl)
+//        ?: error("Not found: ${AstTreeClassIds.rccIrTypeImpl}")
 }

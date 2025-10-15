@@ -12,12 +12,12 @@ import org.prometey.ast.tree.compiler.plugin.ir.AstTreeContext
 context(astTreeContext: AstTreeContext)
 fun IrBuilderWithScope.rccFqName(
     packageName: String,
-    name: String,
+    //name: String,
 ): IrConstructorCall = IrConstructorCallImpl.fromSymbolOwner(
-    type = astTreeContext.rccIrFqNameImpl.defaultType,
-    constructorSymbol = astTreeContext.rccIrFqNameImpl.owner.primaryConstructor?.symbol
-        ?: error("Not found constructor at: ${astTreeContext.rccIrFqNameImpl}"),
+    type = astTreeContext.rccFqNameImpl.defaultType,
+    constructorSymbol = astTreeContext.rccFqNameImpl.owner.primaryConstructor?.symbol
+        ?: error("Not found constructor at: ${astTreeContext.rccFqNameImpl}"),
 ).apply {
     arguments[0] = irString(packageName)
-    arguments[0] = rccName(name)
+    //arguments[0] = rccName(name)
 }

@@ -17,15 +17,11 @@ object AstTreeAnnotations {
     val astTreeAnnotationFqName = FqName("org.prometey.ast.tree.annotation.Ast")
 }
 
-internal object EntityNames {
-
-}
-
 internal object AstTreeClassIds {
     val rccIrElement = ClassId(packageAstTreeName, Name.identifier("RccIrElement"))
 
-    val rccIrName = ClassId(packageAstTreeName, Name.identifier("RccIrName"))
-    val rccIrFqName =  ClassId(packageAstTreeName, Name.identifier("RccIrName"))
+    val rccIrName = ClassId(packageAstTreeName, Name.identifier("RccName"))
+    val rccIrFqName =  ClassId(packageAstTreeName, Name.identifier("RccFqName"))
 
     val rccIrTree = ClassId(packageAstTreeName, Name.identifier("RccIrTree"))
     val rccIrBody =  ClassId(packageAstTreeName, Name.identifier("RccIrBody"))
@@ -35,8 +31,8 @@ internal object AstTreeClassIds {
 
     // implementation zone
 
-    val rccIrNameImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrNameImpl"))
-    val rccIrFqNameImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrFqNameImpl"))
+    val rccNameImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccNameImpl"))
+    val rccFqNameImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccFqNameImpl"))
 
     val rccIrTreeImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrTreeImpl"))
     val rccIrBodyImpl = ClassId(internalPackageAstTreeName, Name.identifier("RccIrBodyImpl"))

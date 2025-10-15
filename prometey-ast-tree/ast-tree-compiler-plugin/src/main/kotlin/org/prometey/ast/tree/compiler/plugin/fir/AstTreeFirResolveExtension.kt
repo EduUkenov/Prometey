@@ -22,8 +22,8 @@ import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.SpecialNames
+import org.prometey.ast.tree.compiler.plugin.AstTreeClassIds
 import org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey
-import org.prometey.ast.tree.compiler.plugin.EntityNames
 import org.prometey.ast.tree.compiler.plugin.FirAstTreePredicates
 
 @OptIn(SymbolInternals::class)
@@ -60,7 +60,7 @@ class AstTreeResolveExtension(
             owner = owner,
             key = AstTreeGeneratedKey,
             name = PropertyAstName,
-            returnType = EntityNames.rccIrTree.createConeType(session),
+            returnType = AstTreeClassIds.rccIrTree.createConeType(session),
         )
 
         return listOf(propertyAst.symbol)

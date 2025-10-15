@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.ir.visitors.acceptVoid
 
 class AstTreeIrGenerationExtension : IrGenerationExtension {
     override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
-        val transformers2 = listOf(AstTreeForBodyGenerator(pluginContext))
+        val transformers2 = listOf(AstTreeForBodyGenerator(AstTreeContext(pluginContext)))
 
         for (transformer in transformers2) {
             moduleFragment.acceptVoid(transformer)

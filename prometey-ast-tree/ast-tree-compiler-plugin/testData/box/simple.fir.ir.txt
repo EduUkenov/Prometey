@@ -9,7 +9,10 @@ FILE fqName:foo.bar fileName:__GENERATED DECLARATIONS__.kt
     PROPERTY GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] name:ast visibility:public modality:FINAL [val]
       FIELD PROPERTY_BACKING_FIELD name:ast type:org.prometey.ast.tree.RccIrTree visibility:private [final]
         EXPRESSION_BODY
-          CONSTRUCTOR_CALL 'public constructor <init> () declared in org.prometey.ast.tree.internal.RccIrTreeImpl' type=org.prometey.ast.tree.internal.RccIrTreeImpl origin=null
+          CONSTRUCTOR_CALL 'public constructor <init> (fqName: org.prometey.ast.tree.RccFqName) declared in org.prometey.ast.tree.internal.RccIrFunctionImpl' type=org.prometey.ast.tree.internal.RccIrFunctionImpl origin=null
+            ARG fqName: CONSTRUCTOR_CALL 'public constructor <init> (packageName: kotlin.String, name: org.prometey.ast.tree.RccName) declared in org.prometey.ast.tree.internal.RccFqNameImpl' type=org.prometey.ast.tree.internal.RccFqNameImpl origin=null
+              ARG packageName: CONSTRUCTOR_CALL 'public constructor <init> (value: kotlin.String) declared in org.prometey.ast.tree.internal.RccNameImpl' type=org.prometey.ast.tree.internal.RccNameImpl origin=null
+                ARG value: CONST String type=kotlin.String value="irSimpleFunction.name.toString()"
       FUN DEFAULT_PROPERTY_ACCESSOR name:<get-ast> visibility:public modality:FINAL returnType:org.prometey.ast.tree.RccIrTree
         VALUE_PARAMETER kind:DispatchReceiver name:<this> index:0 type:foo.bar.BoxAstTree
         correspondingProperty: PROPERTY GENERATED[org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey] name:ast visibility:public modality:FINAL [val]
