@@ -1,17 +1,7 @@
 FILE: simple.kt
     package foo.bar
 
+    public final val modifier: R|androidx/compose/ui/Modifier| = Q|androidx/compose/ui/Modifier|.R|androidx/compose/foundation/layout/size|(Int(2).R|androidx/compose/ui/unit/dp|).R|androidx/compose/foundation/layout/padding|(Int(2).R|androidx/compose/ui/unit/dp|)
+        public get(): R|androidx/compose/ui/Modifier|
     @R|org/prometey/ast/tree/annotation/Ast|() public final fun box(): R|kotlin/Unit| {
-    }
-FILE: __GENERATED DECLARATIONS__.kt
-    package foo.bar
-
-    public final object BoxAstTree : R|kotlin/Any| {
-        public final val ast: R|org/prometey/ast/tree/RccIrTree|
-            public get(): R|org/prometey/ast/tree/RccIrTree|
-
-        private constructor(): R|foo/bar/BoxAstTree| {
-            super<R|kotlin/Any|>()
-        }
-
     }

@@ -1,7 +1,5 @@
 package org.prometey.ast.tree
 
-import org.prometey.ast.tree.name.RccFqName
-
 interface RccIrFunction : RccIrElement {
 
     val fqName: RccFqName

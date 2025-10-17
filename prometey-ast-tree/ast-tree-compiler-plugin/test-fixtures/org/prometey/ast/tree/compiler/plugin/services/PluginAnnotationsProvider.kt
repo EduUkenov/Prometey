@@ -21,6 +21,16 @@ class PluginAnnotationsProvider(
             System.getProperty("prometeyAstTreeRuntime.classpath")
                 ?.split(File.pathSeparator)?.map(::File)
                 ?: error("Unable to get a valid classpath from 'prometeyAstTreeRuntime.classpath' property")
+
+        private val jetpackComposeUiClasspath =
+            System.getProperty("jetpackComposeUi.classpath")
+                ?.split(File.pathSeparator)?.map(::File)
+                ?: error("Unable to get a valid classpath from 'jetpackComposeUi.classpath' property")
+
+        private val jetpackComposeFoundation =
+            System.getProperty("jetpackComposeFoundation.classpath")
+                ?.split(File.pathSeparator)?.map(::File)
+                ?: error("Unable to get a valid classpath from 'jetpackComposeFoundation.classpath' property")
     }
 
     override fun configureCompilerConfiguration(
@@ -32,6 +42,14 @@ class PluginAnnotationsProvider(
         }
 
         for (file in prometeyAstTreeAnnotationRuntimeClasspath) {
+            configuration.addJvmClasspathRoot(file)
+        }
+
+        for (file in jetpackComposeUiClasspath) {
+            configuration.addJvmClasspathRoot(file)
+        }
+
+        for (file in jetpackComposeFoundation) {
             configuration.addJvmClasspathRoot(file)
         }
     }

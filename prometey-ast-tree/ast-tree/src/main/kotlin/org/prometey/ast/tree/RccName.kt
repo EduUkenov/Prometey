@@ -1,4 +1,4 @@
-package org.prometey.ast.tree.name
+package org.prometey.ast.tree
 
 interface RccName {
     val value: String
