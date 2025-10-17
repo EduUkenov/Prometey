@@ -20,6 +20,7 @@ import org.prometey.ast.declaration
 import org.prometey.ast.rcc
 import org.prometey.description.descriptorFun
 
+
 class MainActivity : ComponentActivity() {
 
     lateinit var rcc: RccApplication

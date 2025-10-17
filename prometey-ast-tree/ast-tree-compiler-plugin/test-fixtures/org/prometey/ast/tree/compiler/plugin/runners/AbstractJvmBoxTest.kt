@@ -1,5 +1,6 @@
 package org.prometey.ast.tree.compiler.plugin.runners
 
+import org.jetbrains.kotlin.config.JvmTarget
 import org.jetbrains.kotlin.test.FirParser
 import org.jetbrains.kotlin.test.builders.TestConfigurationBuilder
 import org.jetbrains.kotlin.test.directives.CodegenTestDirectives
@@ -21,6 +22,7 @@ open class AbstractJvmBoxTest : AbstractFirBlackBoxCodegenTestBase(FirParser.Lig
 
         with(builder) {
             defaultDirectives {
+                JvmEnvironmentConfigurationDirectives.JVM_TARGET with JvmTarget.JVM_11
                 +CodegenTestDirectives.DUMP_IR
                 +FirDiagnosticsDirectives.FIR_DUMP
                 +JvmEnvironmentConfigurationDirectives.FULL_JDK

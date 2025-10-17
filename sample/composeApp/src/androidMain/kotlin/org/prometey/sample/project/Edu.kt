@@ -1,6 +1,4 @@
-package foo.bar
-
-import org.prometey.ast.tree.annotation.Ast
+package org.prometey.sample.project
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size

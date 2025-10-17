@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.invoke
+
 plugins {
     kotlin("jvm")
     `java-test-fixtures`
@@ -46,6 +48,14 @@ val prometeyAstTreeRuntimeClasspath: Configuration by configurations.creating {
     isTransitive = false
 }
 
+val jetpackComposeUi: Configuration by configurations.creating {
+    isTransitive = true
+}
+
+val jetpackComposeFoundation: Configuration by configurations.creating {
+    isTransitive = true
+}
+
 dependencies {
     compileOnly(libs.kotlin.compiler)
 
@@ -55,6 +65,8 @@ dependencies {
 
     annotationsRuntimeClasspath(project(":prometey-ast-tree:ast-tree-annotation"))
     prometeyAstTreeRuntimeClasspath(project(":prometey-ast-tree:ast-tree"))
+    jetpackComposeUi(dependencies.implementation("androidx.compose.ui:ui:1.9.3") {})
+    jetpackComposeFoundation(dependencies.implementation("androidx.compose.foundation:foundation:1.9.3") {})
 
     testRuntimeOnly("junit:junit:4.13.2")
     testRuntimeOnly(kotlin("reflect"))
@@ -67,12 +79,16 @@ dependencies {
 tasks.test {
     dependsOn(annotationsRuntimeClasspath)
     dependsOn(prometeyAstTreeRuntimeClasspath)
+    dependsOn(jetpackComposeUi)
+    dependsOn(jetpackComposeFoundation)
 
     useJUnitPlatform()
     workingDir = rootDir
 
     systemProperty("annotationsRuntime.classpath", annotationsRuntimeClasspath.asPath)
     systemProperty("prometeyAstTreeRuntime.classpath", prometeyAstTreeRuntimeClasspath.asPath)
+    systemProperty("jetpackComposeUi.classpath", jetpackComposeUi.asPath)
+    systemProperty("jetpackComposeFoundation.classpath", jetpackComposeFoundation.asPath)
 
     // Properties required to run the internal test framework.
     setLibraryProperty("org.jetbrains.kotlin.test.kotlin-stdlib", "kotlin-stdlib")
