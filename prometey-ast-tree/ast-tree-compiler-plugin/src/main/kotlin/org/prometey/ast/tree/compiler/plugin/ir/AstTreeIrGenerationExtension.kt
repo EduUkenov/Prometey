@@ -5,11 +5,11 @@ import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 
 class AstTreeIrGenerationExtension : IrGenerationExtension {
-    override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
-        //val transformers2 = listOf(AstTreeForBodyGenerator(AstTreeContext(pluginContext)))
-
-//        for (transformer in transformers2) {
-//            moduleFragment.acceptVoid(transformer)
-//        }
+    override fun generate(
+        moduleFragment: IrModuleFragment,
+        pluginContext: IrPluginContext
+    ) {
+        AstTreeExpression().lower(moduleFragment)
+        AstTreeBodyGenerator(pluginContext).lower(moduleFragment)
     }
 }

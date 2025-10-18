@@ -22,9 +22,8 @@ import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.SpecialNames
-import org.prometey.ast.tree.compiler.plugin.AstTreeClassIds
-import org.prometey.ast.tree.compiler.plugin.AstTreeGeneratedKey
-import org.prometey.ast.tree.compiler.plugin.FirAstTreePredicates
+import org.prometey.ast.tree.compiler.plugin.arhive.AstTreeClassIds
+import org.prometey.ast.tree.compiler.plugin.shared.AstTreeGeneratedKey
 
 @OptIn(SymbolInternals::class)
 class AstTreeResolveExtension(

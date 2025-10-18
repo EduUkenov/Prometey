@@ -1,10 +1,15 @@
 package org.prometey.sample.project
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import kotlinx.serialization.Serializable
 
-val modifier = Modifier
-    .size(2.dp)
-    .padding(2.dp)
+@Serializable
+data class Edu(
+    val name: String,
+    val age: String,
+)
+
+@Serializable
+data class Edu2(
+    val name1: String,
+    val name2: String,
+)

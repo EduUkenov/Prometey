@@ -1,16 +1,5 @@
 FILE fqName:foo.bar fileName:/simple.kt
-  PROPERTY name:modifier visibility:public modality:FINAL [val]
-    FIELD PROPERTY_BACKING_FIELD name:modifier type:androidx.compose.ui.Modifier visibility:private [final,static]
-      EXPRESSION_BODY
-        CALL 'public final fun padding (<this>: androidx.compose.ui.Modifier, all: androidx.compose.ui.unit.Dp): androidx.compose.ui.Modifier declared in androidx.compose.foundation.layout' type=androidx.compose.ui.Modifier origin=null
-          ARG <this>: CALL 'public final fun size (<this>: androidx.compose.ui.Modifier, size: androidx.compose.ui.unit.Dp): androidx.compose.ui.Modifier declared in androidx.compose.foundation.layout' type=androidx.compose.ui.Modifier origin=null
-            ARG <this>: GET_OBJECT 'CLASS IR_EXTERNAL_DECLARATION_STUB OBJECT name:Companion modality:FINAL visibility:public [companion] superTypes:[androidx.compose.ui.Modifier]' type=androidx.compose.ui.Modifier.Companion
-            ARG size: CALL 'public final fun <get-dp> (<this>: kotlin.Int): androidx.compose.ui.unit.Dp declared in androidx.compose.ui.unit' type=androidx.compose.ui.unit.Dp origin=GET_PROPERTY
-              ARG <this>: CONST Int type=kotlin.Int value=2
-          ARG all: CALL 'public final fun <get-dp> (<this>: kotlin.Int): androidx.compose.ui.unit.Dp declared in androidx.compose.ui.unit' type=androidx.compose.ui.unit.Dp origin=GET_PROPERTY
-            ARG <this>: CONST Int type=kotlin.Int value=2
-    FUN DEFAULT_PROPERTY_ACCESSOR name:<get-modifier> visibility:public modality:FINAL returnType:androidx.compose.ui.Modifier
-      correspondingProperty: PROPERTY name:modifier visibility:public modality:FINAL [val]
-      BLOCK_BODY
-        RETURN type=kotlin.Nothing from='public final fun <get-modifier> (): androidx.compose.ui.Modifier declared in foo.bar'
-          GET_FIELD 'FIELD PROPERTY_BACKING_FIELD name:modifier type:androidx.compose.ui.Modifier visibility:private [final,static]' type=androidx.compose.ui.Modifier origin=null
+  FUN name:box visibility:public modality:FINAL returnType:kotlin.Unit
+    annotations:
+      AstTree
+    BLOCK_BODY

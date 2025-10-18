@@ -4,7 +4,7 @@ plugins {
 	alias(libs.plugins.kotlinMultiplatform)
 	alias(libs.plugins.androidApplication)
 	//id("rcc.ast.gradle.plugin") version "0.0.1"
-	id("kotlinmeta.gradle.plugin") version "0.0.1"
+//	id("kotlinmeta.gradle.plugin") version "0.0.1"
 	alias(libs.plugins.composeMultiplatform)
 	alias(libs.plugins.composeCompiler)
 }

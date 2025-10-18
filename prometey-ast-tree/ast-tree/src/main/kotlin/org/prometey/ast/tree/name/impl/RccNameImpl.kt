@@ -1,6 +1,6 @@
-package org.prometey.ast.tree.internal
+package org.prometey.ast.tree.name.impl
 
-import org.prometey.ast.tree.RccName
+import org.prometey.ast.tree.name.RccName
 
 @PublishedApi
 internal class RccNameImpl(
