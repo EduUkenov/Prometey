@@ -17,13 +17,21 @@ object AstTreePackages {
     val astTreePackageNameImpl = FqName("org.prometey.ast.tree.name.impl")
 }
 
+object AstTreeAnnotations {
+    val astTreeAnnotationFqName = FqName("org.prometey.ast.tree.annotation.AstTree")
+    val astTreeAnnotationClassId = ClassId.topLevel(astTreeAnnotationFqName)
+
+    object AstTreeParameterNames {
+        val NAME = Name.identifier("name")
+    }
+}
+
+object AstTreeEntityNames {
+    const val AST_TREE = "AstTree"
+}
+
 object AstTreeClassIds {
     val rccElement = ClassId(astTreePackage, Name.identifier("RccIrElement"))
     val rccIrTree = ClassId(astTreePackage, Name.identifier("RccIrTree"))
     val rccIrTreeImpl = ClassId(astTreePackageImpl, Name.identifier("RccIrTreeImpl"))
-}
-
-object AstTreeAnnotations {
-    val astTreeAnnotationFqName = FqName("org.prometey.ast.tree.annotation.AstTree")
-    val astTreeAnnotationClassId = ClassId.topLevel(astTreeAnnotationFqName)
 }

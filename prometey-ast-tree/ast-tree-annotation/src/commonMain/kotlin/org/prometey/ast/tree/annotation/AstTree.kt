@@ -11,7 +11,6 @@ package org.prometey.ast.tree.annotation
  * - `name` — must be unique within a single package.
  *   Required if the target declaration supports overloading.
  */
-@Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 public annotation class AstTree(
     val name: String = ""

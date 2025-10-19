@@ -2,6 +2,8 @@ package org.prometey.ast.tree.compiler.plugin.fir
 
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.fir.FirSession
+import org.jetbrains.kotlin.fir.expressions.FirAnnotationCall
+import org.jetbrains.kotlin.fir.expressions.FirLiteralExpression
 import org.jetbrains.kotlin.fir.extensions.ExperimentalTopLevelDeclarationsGenerationApi
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationGenerationExtension
 import org.jetbrains.kotlin.fir.extensions.FirDeclarationPredicateRegistrar
@@ -22,7 +24,8 @@ import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.name.SpecialNames
-import org.prometey.ast.tree.compiler.plugin.arhive.AstTreeClassIds
+import org.prometey.ast.tree.compiler.plugin.shared.AstTreeAnnotations
+import org.prometey.ast.tree.compiler.plugin.shared.AstTreeClassIds
 import org.prometey.ast.tree.compiler.plugin.shared.AstTreeGeneratedKey
 
 @OptIn(SymbolInternals::class)
@@ -34,6 +37,10 @@ class AstTreeResolveExtension(
         session.predicateBasedProvider.getSymbolsByPredicate(FirAstTreePredicates.annotatedWithAstTreeLookup)
     }
 
+    val target2 by lazy {
+        session.predicateBasedProvider.getSymbolsByPredicate(FirAstTreePredicates.annotatedWithAstTreeLookup)
+    }
+
     @ExperimentalTopLevelDeclarationsGenerationApi
     override fun generateTopLevelClassLikeDeclaration(classId: ClassId): FirClassLikeSymbol<*>? {
         return createTopLevelClass(
@@ -42,8 +49,6 @@ class AstTreeResolveExtension(
             classKind = ClassKind.OBJECT
         ).symbol
     }
-
-    override fun hasPackage(packageFqName: FqName): Boolean = true
 
     override fun generateConstructors(context: MemberGenerationContext): List<FirConstructorSymbol> {
         return listOf(createDefaultPrivateConstructor(context.owner, AstTreeGeneratedKey).symbol)
@@ -67,24 +72,26 @@ class AstTreeResolveExtension(
 
     @ExperimentalTopLevelDeclarationsGenerationApi
     override fun getTopLevelClassIds(): Set<ClassId> {
-        return target.mapTo(mutableSetOf()) {
-            when (it) {
+        return target.mapTo(mutableSetOf()) { firSymbol ->
+            when (firSymbol) {
                 is FirClassSymbol -> error("//Todo сделать поддержку классов")
 
                 is FirFunctionSymbol -> {
-                    val nameCamel = it.callableId.callableName.identifier.replaceFirstChar { ch ->
-                        if (ch.isLowerCase()) ch.titlecase() else ch.toString()
-                    }
+                    val name = firSymbol.annotations
+                        .filterIsInstance<FirAnnotationCall>()
+                        .find {
+                            session.predicateBasedProvider.matches(FirAstTreePredicates.annotatedWithAstTree, firSymbol)
+                        }?.argumentList?.arguments?.first() as FirLiteralExpression
 
                     ClassId(
-                        it.callableId.packageName,
-                        Name.identifier(nameCamel + "AstTree")
+                        firSymbol.callableId.packageName,
+                        Name.identifier(name.value.toString() + "AstTree")
                     )
                 }
 
                 else -> error(
                     """
-                    The AST annotation does not support this declaration: $it
+                    The AST annotation does not support this declaration: $firSymbol
                 """.trimIndent()
                 )
             }

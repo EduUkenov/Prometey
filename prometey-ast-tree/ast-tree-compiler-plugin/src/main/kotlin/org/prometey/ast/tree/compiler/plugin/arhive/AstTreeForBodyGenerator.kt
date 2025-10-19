@@ -14,29 +14,29 @@ import org.jetbrains.kotlin.ir.visitors.IrVisitorVoid
 import org.jetbrains.kotlin.ir.visitors.acceptChildrenVoid
 import org.prometey.ast.tree.compiler.plugin.shared.AstTreeGeneratedKey
 
-class AstTreeForBodyGenerator(
-    moduleFragment: IrModuleFragment,
-    val pluginContext: IrPluginContext
-) : IrVisitorVoid() {
-    val astTreeTranspilation = AstTreeTranspilationV2()
-
-    val rccIrTreeImpl = pluginContext.referenceClass(AstTreeClassIds.rccIrTreeImpl)
-        ?: error("Not found: ${AstTreeClassIds.rccIrTreeImpl}")
-
-    override fun visitElement(element: IrElement) {
-        element.acceptChildrenVoid(this)
-    }
-
-    override fun visitProperty(declaration: IrProperty) {
-        val origin = declaration.origin
-        if (origin !is IrDeclarationOrigin.GeneratedByPlugin || origin.pluginKey != AstTreeGeneratedKey) return
-
-        declaration.backingField?.initializer = pluginContext.irFactory.createExpressionBody(
-            expression = IrConstructorCallImpl.fromSymbolOwner(
-                type = rccIrTreeImpl.defaultType,
-                constructorSymbol = rccIrTreeImpl.owner.primaryConstructor?.symbol
-                    ?: error("Not found constructor at: $rccIrTreeImpl}"),
-            )
-        )
-    }
-}
+//class AstTreeForBodyGenerator(
+//    moduleFragment: IrModuleFragment,
+//    val pluginContext: IrPluginContext
+//) : IrVisitorVoid() {
+//    val astTreeTranspilation = AstTreeTranspilationV2()
+//
+//    val rccIrTreeImpl = pluginContext.referenceClass(AstTreeClassIds.rccIrTreeImpl)
+//        ?: error("Not found: ${AstTreeClassIds.rccIrTreeImpl}")
+//
+//    override fun visitElement(element: IrElement) {
+//        element.acceptChildrenVoid(this)
+//    }
+//
+//    override fun visitProperty(declaration: IrProperty) {
+//        val origin = declaration.origin
+//        if (origin !is IrDeclarationOrigin.GeneratedByPlugin || origin.pluginKey != AstTreeGeneratedKey) return
+//
+//        declaration.backingField?.initializer = pluginContext.irFactory.createExpressionBody(
+//            expression = IrConstructorCallImpl.fromSymbolOwner(
+//                type = rccIrTreeImpl.defaultType,
+//                constructorSymbol = rccIrTreeImpl.owner.primaryConstructor?.symbol
+//                    ?: error("Not found constructor at: $rccIrTreeImpl}"),
+//            )
+//        )
+//    }
+//}

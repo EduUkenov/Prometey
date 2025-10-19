@@ -2,7 +2,7 @@ package org.prometey.ast.tree.compiler.plugin.fir
 
 import org.jetbrains.kotlin.fir.extensions.predicate.DeclarationPredicate
 import org.jetbrains.kotlin.fir.extensions.predicate.LookupPredicate
-import org.prometey.ast.tree.compiler.plugin.arhive.AstTreeAnnotations
+import org.prometey.ast.tree.compiler.plugin.shared.AstTreeAnnotations
 
 object FirAstTreePredicates {
     internal val annotatedWithAstTree = DeclarationPredicate.Companion.create {

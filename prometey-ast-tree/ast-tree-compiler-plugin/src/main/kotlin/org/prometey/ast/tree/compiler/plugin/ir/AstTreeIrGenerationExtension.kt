@@ -9,7 +9,7 @@ class AstTreeIrGenerationExtension : IrGenerationExtension {
         moduleFragment: IrModuleFragment,
         pluginContext: IrPluginContext
     ) {
-        AstTreeExpression().lower(moduleFragment)
-        AstTreeBodyGenerator(pluginContext).lower(moduleFragment)
+//        AstTreeExpression().lower(moduleFragment)
+//        AstTreeBodyGenerator(pluginContext).lower(moduleFragment)
     }
 }
