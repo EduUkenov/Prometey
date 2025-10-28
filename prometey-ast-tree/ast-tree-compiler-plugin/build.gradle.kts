@@ -3,7 +3,6 @@ import org.gradle.kotlin.dsl.invoke
 plugins {
     kotlin("jvm")
     `java-test-fixtures`
-    id("com.github.gmazzo.buildconfig")
     idea
     `maven-publish`
 }

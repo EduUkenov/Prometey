@@ -7,3 +7,8 @@ object AstTreeGeneratedKey : GeneratedDeclarationKey() {
         return "AstTreePlugin"
     }
 }
+
+data class AstTreeGeneratedClazzKey(
+    val source: Identifier,
+    val generated: Identifier.Clazz,
+) : GeneratedDeclarationKey()

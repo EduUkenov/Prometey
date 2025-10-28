@@ -13,7 +13,7 @@ import org.prometey.ast.tree.compiler.plugin.shared.AstTreeAnnotations
 /**
  * Responsible for finding source expressions that have the @AstTree annotation.
  */
-class AstTreeExpression() {
+class AstTreeElementContainer() {
     private val _expressions: MutableMap<String, IrElement> = mutableMapOf()
 
     fun lower(moduleFragment: IrModuleFragment) {
@@ -30,14 +30,14 @@ class AstTreeExpression() {
         override fun visitClass(declaration: IrClass) {
             if (!declaration.hasAnnotation(AstTreeAnnotations.astTreeAnnotationClassId)) return
 
-            store[""] = declaration
+            store["Edu"] = declaration
         }
 
         override fun visitSimpleFunction(declaration: IrSimpleFunction) {
             if (!declaration.hasAnnotation(AstTreeAnnotations.astTreeAnnotationClassId)) return
 
             declaration.returnType.classFqName
-            store[""] = declaration
+            store["Edu"] = declaration
         }
     }
 }

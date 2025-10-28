@@ -2,7 +2,11 @@ package foo.bar
 
 import org.prometey.ast.tree.annotation.AstTree
 
-@AstTree("BoxTor")
-fun box() {
+class EduEdu() {
+    
+}
 
+@AstTree()
+fun box(): String {
+    return ""
 }
