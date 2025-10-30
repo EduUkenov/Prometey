@@ -18,4 +18,7 @@ interface Edu {}
 
 fun Edu() {
 
+    val a = String::class
+
+    a.qualifiedName
 }
