@@ -45,7 +45,7 @@ class AstTreeBodyGenerator(
                     type = rccIrTreeImplRef.defaultType,
                     constructorSymbol = rccIrTreeImplRef.owner.primaryConstructor!!.symbol,
                 ).apply {
-                    arguments[0] = astTreeTranspilation.build()
+                    arguments[0] = astTreeTranspilation.build(astTreeElementContainer)
                 }
             )
         }
