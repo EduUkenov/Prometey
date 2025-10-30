@@ -10,26 +10,14 @@ import org.jetbrains.kotlin.ir.visitors.IrVisitor
 import org.jetbrains.kotlin.ir.visitors.IrVisitorVoid
 import org.prometey.ast.tree.compiler.plugin.shared.AstTreeClassIds
 
-class VisitorLower : IrVisitorVoid() {
-    override fun visitElement(element: IrElement) {
-        println("RccLog visitElement")
-        element.acceptChildren(this, null)
-    }
-
-    override fun visitPackageFragment(declaration: IrPackageFragment) {
-        println("RccLog visitPackageFragment")
-        super.visitPackageFragment(declaration)
-    }
-
-    override fun visitSimpleFunction(declaration: IrSimpleFunction) {
-        println("RccLog visitSimpleFunction")
-    }
-}
-
 class AstTreeTranspilation(
     pluginContext: IrPluginContext
 ) {
-    val rccIrFunctionImpl = pluginContext.referenceClass(AstTreeClassIds.rccIrFunctionImpl)!!
+    private val rccIrFunctionImpl = pluginContext.referenceClass(AstTreeClassIds.rccIrFunctionImpl)!!
+
+    fun build(astTreeElementContainer: AstTreeElementContainer): IrExpression {
+        return astTreeElementContainer.expression.elementAt(0).accept(Visitor(), null)
+    }
 
     private inner class Visitor : IrVisitor<IrExpression, Nothing?>() {
         lateinit var expression: IrExpression

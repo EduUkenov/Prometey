@@ -10,6 +10,10 @@ class AstTreeIrGenerationExtension : IrGenerationExtension {
         moduleFragment: IrModuleFragment,
         pluginContext: IrPluginContext
     ) {
-        moduleFragment.acceptChildrenVoid(VisitorLower())
+        val elementContainer = AstTreeElementContainer().apply {
+            lower(moduleFragment)
+        }
+
+        AstTreeBodyGenerator(pluginContext).lower(moduleFragment, elementContainer)
     }
 }

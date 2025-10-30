@@ -24,10 +24,14 @@ class AstTreeBodyGenerator(
         moduleFragment: IrModuleFragment,
         astTreeElementContainer: AstTreeElementContainer,
     ) {
-        moduleFragment.acceptChildrenVoid(Visitor())
+        moduleFragment.acceptChildrenVoid(Visitor(astTreeElementContainer))
     }
 
-    private inner class Visitor() : IrVisitorVoid() {
+    private inner class Visitor(
+        private val astTreeElementContainer: AstTreeElementContainer,
+    ) : IrVisitorVoid() {
+        val astTreeTranspilation = AstTreeTranspilation(pluginContext)
+
         override fun visitElement(element: IrElement) {
             element.acceptChildrenVoid(this)
         }
@@ -41,7 +45,7 @@ class AstTreeBodyGenerator(
                     type = rccIrTreeImplRef.defaultType,
                     constructorSymbol = rccIrTreeImplRef.owner.primaryConstructor!!.symbol,
                 ).apply {
-                    arguments[0] = TODO() // Дерево виде Expression
+                    arguments[0] = astTreeTranspilation.build()
                 }
             )
         }
