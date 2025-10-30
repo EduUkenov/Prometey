@@ -1,10 +1,10 @@
-package org.prometey.ast.tree.internal
+package org.prometey.ast.tree.declarations.impl
 
-import org.prometey.ast.tree.RccIrBody
-import org.prometey.ast.tree.RccIrFunction
-import org.prometey.ast.tree.RccIrType
-import org.prometey.ast.tree.RccFqName
-import org.prometey.ast.tree.visitors.RccIrVisitor
+import org.prometey.ast.tree.name.RccFqName
+import org.prometey.ast.tree.declarations.RccIrBody
+import org.prometey.ast.tree.declarations.RccIrFunction
+import org.prometey.ast.tree.declarations.RccIrType
+import org.prometey.ast.tree.visitor.RccIrVisitor
 
 @PublishedApi
 internal class RccIrFunctionImpl(
@@ -14,10 +14,6 @@ internal class RccIrFunctionImpl(
 //    override val extensionType: RccIrType?,
     override val body: RccIrBody,
 ) : RccIrFunction {
-    override fun <R> accept(visitor: RccIrVisitor<R>): R {
-        return visitor.visitIrFunction(this)
-    }
-
     override val parametersType: List<RccIrType>
         get() = TODO("Not yet implemented")
     override val returnType: RccIrType

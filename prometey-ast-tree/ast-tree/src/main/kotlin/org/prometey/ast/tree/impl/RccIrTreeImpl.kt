@@ -1,4 +1,4 @@
-package org.prometey.ast.tree.internal
+package org.prometey.ast.tree.impl
 
 import org.prometey.ast.tree.RccIrElement
 import org.prometey.ast.tree.RccIrTree

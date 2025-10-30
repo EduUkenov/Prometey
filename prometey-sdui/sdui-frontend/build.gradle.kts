@@ -38,7 +38,8 @@ kotlin {
 	sourceSets {
 		commonMain.dependencies {
 			implementation(libs.androidx.collection)
-			
+			implementation(libs.jetbrains.collections.immutable)
+
 			implementation(libs.jetbrains.compose.runtime)
 			implementation(libs.jetbrains.compose.foundation)
 			implementation(libs.jetbrains.compose.ui)
@@ -80,7 +81,7 @@ android {
 	}
 }
 
-/*dependencies {
+dependencies {
     debugImplementation(compose.uiTooling)
-}*/
+}
 
