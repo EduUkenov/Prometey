@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
+    id("ast.tree.gradle.plugin") version "0.0.1"
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeMultiplatform)
-    id("ast.tree.gradle.plugin") version "0.0.1"
 }
 
 dependencies {
