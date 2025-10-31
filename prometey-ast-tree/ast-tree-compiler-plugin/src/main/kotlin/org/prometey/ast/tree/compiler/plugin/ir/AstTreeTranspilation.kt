@@ -106,7 +106,7 @@ class AstTreeTranspilation(
             constructorSymbol = rccIrFunctionImplRef.owner.primaryConstructor!!.symbol,
         ).apply {
             arguments[0] = rccIrFqNameConstructor(irSimpleFunction.fqNameWhenAvailable!!)
-            arguments[1] = TODO(irSimpleFunction.body)
+            //arguments[1] = TODO(irSimpleFunction.body)
         }
     }
 }
