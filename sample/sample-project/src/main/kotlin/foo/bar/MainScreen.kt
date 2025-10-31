@@ -1,32 +1,29 @@
 package foo.bar
 
-//@Ast
-//@Composable
-//fun MainComponent() {
-//    Column {
-//        Box {
-//            Row {
-//
-//            }
-//        }
-//    }
-//}
-//
-//fun test() {
-//    val b: RccIrTree = MainComponentAstTree.ast
-//
-//    b.root.accept(Edu())
-//}
+import androidx.compose.runtime.Composable
+import org.prometey.ast.tree.RccIrTree
+import org.prometey.ast.tree.annotation.AstTree
+import org.prometey.ast.tree.declarations.RccIrFunction
+import org.prometey.ast.tree.visitor.RccIrVisitor
 
-fun main() {
-    listOf(
-        1,
-        2
-    )
+@AstTree
+@Composable
+fun MainComponent() {
+
 }
 
-//class Edu : RccIrVisitor<Unit> {
-//    override fun visitIrFunction(function: RccIrFunction) {
-//        println("EduLog ${function.fqName}")
-//    }
-//}
+fun test() {
+    val b: RccIrTree = MainComponentAstTree.ast
+
+    b.root.accept(Edu())
+}
+
+fun main() {
+    test()
+}
+
+class Edu : RccIrVisitor<Unit> {
+    override fun visitIrFunction(function: RccIrFunction) {
+        println("EduLog ${function.fqName.name.value}")
+    }
+}

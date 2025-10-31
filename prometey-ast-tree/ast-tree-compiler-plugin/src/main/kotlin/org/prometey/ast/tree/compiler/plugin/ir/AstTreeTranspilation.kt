@@ -8,7 +8,11 @@ import org.jetbrains.kotlin.ir.builders.IrBuilder
 import org.jetbrains.kotlin.ir.builders.declarations.IrDeclarationBuilder
 import org.jetbrains.kotlin.ir.builders.irString
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
+import org.jetbrains.kotlin.ir.expressions.IrBlockBody
+import org.jetbrains.kotlin.ir.expressions.IrBody
 import org.jetbrains.kotlin.ir.expressions.IrExpression
+import org.jetbrains.kotlin.ir.expressions.IrExpressionBody
+import org.jetbrains.kotlin.ir.expressions.IrSyntheticBody
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstructorCallImpl
 import org.jetbrains.kotlin.ir.expressions.impl.fromSymbolOwner
 import org.jetbrains.kotlin.ir.types.IrDynamicType
@@ -61,7 +65,7 @@ class AstTreeTranspilation(
             name: Name
         ): IrExpression = IrConstructorCallImpl.Companion.fromSymbolOwner(
             type = rccIrNameImplRef.defaultType,
-            constructorSymbol = rccIrTypeSimpleImplRef.owner.primaryConstructor!!.symbol,
+            constructorSymbol = rccIrNameImplRef.owner.primaryConstructor!!.symbol,
         ).apply {
             arguments[0] = irString(name.identifier)
         }
@@ -70,7 +74,7 @@ class AstTreeTranspilation(
             fqName: FqName
         ): IrExpression = IrConstructorCallImpl.Companion.fromSymbolOwner(
             type = rccIrTypeFqNameImplRef.defaultType,
-            constructorSymbol = rccIrTypeSimpleImplRef.owner.primaryConstructor!!.symbol,
+            constructorSymbol = rccIrTypeFqNameImplRef.owner.primaryConstructor!!.symbol,
         ).apply {
             arguments[0] = irString(fqName.asString())
             arguments[1] = rccIrNameConstructor(fqName.shortName())
@@ -102,6 +106,27 @@ class AstTreeTranspilation(
             constructorSymbol = rccIrFunctionImplRef.owner.primaryConstructor!!.symbol,
         ).apply {
             arguments[0] = rccIrFqNameConstructor(irSimpleFunction.fqNameWhenAvailable!!)
+            arguments[1] = TODO(irSimpleFunction.body)
         }
     }
 }
+
+//override fun visitBody(body: IrBody, data: Nothing?): IrExpression {
+//    println("EduLog $body")
+//    return super.visitBody(body, data)
+//}
+//
+//override fun visitBlockBody(body: IrBlockBody, data: Nothing?): IrExpression {
+//    println("EduLog $body")
+//    return super.visitBlockBody(body, data)
+//}
+//
+//override fun visitExpressionBody(body: IrExpressionBody, data: Nothing?): IrExpression {
+//    println("EduLog $body")
+//    return super.visitExpressionBody(body, data)
+//}
+//
+//override fun visitSyntheticBody(body: IrSyntheticBody, data: Nothing?): IrExpression {
+//    println("EduLog $body")
+//    return super.visitSyntheticBody(body, data)
+//}
