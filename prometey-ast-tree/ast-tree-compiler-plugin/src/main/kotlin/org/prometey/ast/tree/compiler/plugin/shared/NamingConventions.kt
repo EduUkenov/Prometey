@@ -7,6 +7,8 @@ import org.prometey.ast.tree.compiler.plugin.shared.AstTreePackages.astTreePacka
 import org.prometey.ast.tree.compiler.plugin.shared.AstTreePackages.astTreePackageDeclaration
 import org.prometey.ast.tree.compiler.plugin.shared.AstTreePackages.astTreePackageDeclarationImpl
 import org.prometey.ast.tree.compiler.plugin.shared.AstTreePackages.astTreePackageImpl
+import org.prometey.ast.tree.compiler.plugin.shared.AstTreePackages.astTreePackageName
+import org.prometey.ast.tree.compiler.plugin.shared.AstTreePackages.astTreePackageNameImpl
 
 object AstTreePackages {
     val astTreePackage = FqName("org.prometey.ast.tree")
@@ -33,9 +35,20 @@ object AstTreeEntityNames {
 }
 
 object AstTreeClassIds {
+    val rccName = ClassId(astTreePackageName, Name.identifier("RccName"))
+    val rccNameImpl = ClassId(astTreePackageNameImpl, Name.identifier("RccNameImpl"))
+    val rccFqName = ClassId(astTreePackageName, Name.identifier("RccFqName"))
+    val rccFqNameImpl = ClassId(astTreePackageNameImpl, Name.identifier("RccFqNameImpl"))
+
     val rccElement = ClassId(astTreePackage, Name.identifier("RccIrElement"))
+
     val rccIrTree = ClassId(astTreePackage, Name.identifier("RccIrTree"))
     val rccIrTreeImpl = ClassId(astTreePackageImpl, Name.identifier("RccIrTreeImpl"))
+
+    val rccIrType = ClassId(astTreePackageDeclaration, Name.identifier("RccIrType"))
+    val rccIrTypeSimple = ClassId(astTreePackageDeclaration, Name.identifier("RccIrTypeSimple"))
+    val rccIrTypeSimpleImpl = ClassId(astTreePackageDeclarationImpl, Name.identifier("RccIrTypeSimpleImpl"))
+
     val rccIrFunction = ClassId(astTreePackageDeclaration, Name.identifier("RccIrFunction"))
     val rccIrFunctionImpl = ClassId(astTreePackageDeclarationImpl, Name.identifier("RccIrFunctionImpl"))
 }

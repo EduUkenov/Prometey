@@ -1,3 +1,7 @@
 package org.prometey.ast.tree
 
-interface RccIrElement
+import org.prometey.ast.tree.visitor.RccIrVisitor
+
+interface RccIrElement {
+    fun <R> accept(visitor: RccIrVisitor<R>): R
+}

@@ -1,19 +1,6 @@
 FILE: simple.kt
     package foo.bar
 
-    public final class EduEdu : R|kotlin/Any| {
-        public constructor(): R|foo/bar/EduEdu| {
-            super<R|kotlin/Any|>()
-        }
-
-        public final val ast: R|org/prometey/ast/tree/RccIrTree|
-            public get(): R|org/prometey/ast/tree/RccIrTree|
-
-        private constructor(): R|foo/bar/EduEdu| {
-            super<R|kotlin/Any|>()
-        }
-
-    }
     @R|org/prometey/ast/tree/annotation/AstTree|() public final fun box(): R|kotlin/String| {
         ^box String()
     }
