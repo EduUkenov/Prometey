@@ -1,0 +1,18 @@
+FILE: simple.kt
+    package foo.bar
+
+    @R|org/prometey/ast/tree/annotation/AstTree|() public final fun box(): R|kotlin/String| {
+        ^box String()
+    }
+FILE: __GENERATED DECLARATIONS__.kt
+    package foo.bar
+
+    public final object BoxAstTree : R|kotlin/Any| {
+        public final val ast: R|org/prometey/ast/tree/RccIrTree|
+            public get(): R|org/prometey/ast/tree/RccIrTree|
+
+        private constructor(): R|foo/bar/BoxAstTree| {
+            super<R|kotlin/Any|>()
+        }
+
+    }
