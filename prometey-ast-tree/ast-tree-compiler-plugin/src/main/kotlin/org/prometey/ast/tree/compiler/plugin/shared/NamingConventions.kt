@@ -35,10 +35,10 @@ object AstTreeEntityNames {
 }
 
 object AstTreeClassIds {
-    val rccName = ClassId(astTreePackageName, Name.identifier("RccIrName"))
-    val rccNameImpl = ClassId(astTreePackageNameImpl, Name.identifier("RccIrNameImpl"))
-    val rccFqName = ClassId(astTreePackageName, Name.identifier("RccIrFqName"))
-    val rccFqNameImpl = ClassId(astTreePackageNameImpl, Name.identifier("RccIrFqNameImpl"))
+    val rccName = ClassId(astTreePackageName, Name.identifier("RccName"))
+    val rccNameImpl = ClassId(astTreePackageNameImpl, Name.identifier("RccNameImpl"))
+    val rccFqName = ClassId(astTreePackageName, Name.identifier("RccFqName"))
+    val rccFqNameImpl = ClassId(astTreePackageNameImpl, Name.identifier("RccFqNameImpl"))
 
     val rccElement = ClassId(astTreePackage, Name.identifier("RccIrElement"))
 

@@ -8,9 +8,12 @@ import org.prometey.ast.tree.declarations.RccIrType
 @PublishedApi
 internal class RccIrFunctionImpl(
     override val fqName: RccFqName,
-    override val returnType: RccIrType,
-    override val parametersType: List<RccIrType>,
-    override val extensionType: RccIrType?,
 ) : RccIrFunction {
+    override val parametersType: List<RccIrType>
+        get() = TODO("Not yet implemented")
+    override val returnType: RccIrType
+        get() = TODO("Not yet implemented")
+    override val extensionType: RccIrType?
+        get() = TODO("Not yet implemented")
     override val body: RccIrBody get() = TODO("Not yet implemented")
 }
