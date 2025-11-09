@@ -1,6 +1,5 @@
 package org.prometey.ast.tree.compiler.plugin.ir
 
-import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationOrigin
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
@@ -16,9 +15,9 @@ import org.prometey.ast.tree.compiler.plugin.shared.AstTreeClassIds
 import org.prometey.ast.tree.compiler.plugin.shared.AstTreeGeneratedKey
 
 class AstTreeBodyGenerator(
-    private val pluginContext: IrPluginContext,
+    private val context: AstTreePluginContext,
 ) {
-    private val rccIrTreeImplRef = pluginContext.referenceClass(AstTreeClassIds.rccIrTreeImpl)!!
+    private val rccIrTreeImplRef = context.referenceClass(AstTreeClassIds.rccIrTreeImpl)!!
 
     fun lower(
         moduleFragment: IrModuleFragment,
@@ -30,7 +29,7 @@ class AstTreeBodyGenerator(
     private inner class Visitor(
         private val astTreeElementContainer: AstTreeElementContainer,
     ) : IrVisitorVoid() {
-        val astTreeTranspilation = AstTreeTranspilation(pluginContext)
+        val astTreeTranspilation = AstTreeTranspilation(context)
 
         override fun visitElement(element: IrElement) {
             element.acceptChildrenVoid(this)
@@ -40,7 +39,7 @@ class AstTreeBodyGenerator(
             val origin = declaration.origin
             if (origin !is IrDeclarationOrigin.GeneratedByPlugin || origin.pluginKey != AstTreeGeneratedKey) return
 
-            declaration.backingField?.initializer = pluginContext.irFactory.createExpressionBody(
+            declaration.backingField?.initializer = context.irFactory.createExpressionBody(
                 expression = IrConstructorCallImpl.Companion.fromSymbolOwner(
                     type = rccIrTreeImplRef.defaultType,
                     constructorSymbol = rccIrTreeImplRef.owner.primaryConstructor!!.symbol,

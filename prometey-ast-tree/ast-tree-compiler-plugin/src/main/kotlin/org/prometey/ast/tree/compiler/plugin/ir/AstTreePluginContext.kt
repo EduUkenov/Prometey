@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.ir.util.isVararg
 import org.prometey.ast.tree.compiler.plugin.shared.AstTreeCallableIds
 import org.prometey.ast.tree.compiler.plugin.shared.AstTreeClassIds
 
-abstract class AstTreePluginContext(
+class AstTreePluginContext(
     pluginContext: IrPluginContext
 ) : IrPluginContext by pluginContext {
 
@@ -20,6 +20,9 @@ abstract class AstTreePluginContext(
     val rccIrFunctionImplRef = pluginContext.referenceClass(AstTreeClassIds.rccIrFunctionImpl)!!
     val rccIrBodyImplRef = pluginContext.referenceClass(AstTreeClassIds.rccIrBodyImpl)!!
     val rccIrCallImplRef = pluginContext.referenceClass(AstTreeClassIds.rccIrCallImpl)!!
-
+    val rccIrFunctionExpressionRef = pluginContext.referenceClass(AstTreeClassIds.rccIrFunctionExpressionImpl)!!
+    val rccIrReturnImplRef = pluginContext.referenceClass(AstTreeClassIds.rccIrReturnImpl)!!
+    val rccIrGetObjectValueImplRef = pluginContext.referenceClass(AstTreeClassIds.rccIrGetObjectValueImpl)!!
+    val rccIrConstImplRef = pluginContext.referenceClass(AstTreeClassIds.rccIrConstImpl)!!
 
 }

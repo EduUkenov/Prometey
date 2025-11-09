@@ -11,7 +11,6 @@ internal class PluginGeneratedDescriptorLambda(
     override val isNullable: Boolean,
     private val generatedDescriptor: Array<out Descriptor>,
 ) : DescriptorLambda {
-
     override fun getParameterDescript(index: Int): Descriptor {
         TODO("Not yet implemented")
     }

@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.prometey.sdui.ModifierList
-import org.prometey.sdui.modifierListOfImpl
+import org.prometey.sdui.metaFactory.ModifierList
+import org.prometey.sdui.metaFactory.modifierListOfImpl
 
 @Preview
 @Composable

@@ -1,7 +1,9 @@
 package org.prometey.ast.tree.compiler.plugin.ir
 
+import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.backend.common.lower.DeclarationIrBuilder
 import org.jetbrains.kotlin.backend.common.lower.createIrBuilder
+import org.jetbrains.kotlin.ir.IrBuiltIns
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.UNDEFINED_OFFSET
 import org.jetbrains.kotlin.ir.builders.IrBuilder
@@ -39,6 +41,7 @@ import org.jetbrains.kotlin.ir.expressions.IrCallableReference
 import org.jetbrains.kotlin.ir.expressions.IrCatch
 import org.jetbrains.kotlin.ir.expressions.IrClassReference
 import org.jetbrains.kotlin.ir.expressions.IrComposite
+import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstantArray
 import org.jetbrains.kotlin.ir.expressions.IrConstantObject
 import org.jetbrains.kotlin.ir.expressions.IrConstantPrimitive
@@ -103,7 +106,9 @@ import org.jetbrains.kotlin.ir.types.IrSimpleType
 import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.types.classFqName
 import org.jetbrains.kotlin.ir.types.defaultType
+import org.jetbrains.kotlin.ir.util.callableId
 import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
+import org.jetbrains.kotlin.ir.util.getPackageFragment
 import org.jetbrains.kotlin.ir.util.primaryConstructor
 import org.jetbrains.kotlin.ir.visitors.IrVisitor
 import org.jetbrains.kotlin.name.FqName
@@ -183,13 +188,15 @@ class AstTreeTranspilation(
             error("IrReplSnippet is not supported")
         }
 
+        @OptIn(DeprecatedForRemovalCompilerApi::class)
         override fun visitSimpleFunction(
             declaration: IrSimpleFunction,
             data: Nothing?
         ): IrExpression {
+            //declaration.getPackageFragment()
             val builder = pluginContext.irBuiltIns.createIrBuilder(declaration.symbol)
             return with(builder) {
-                rccIrFunctionConstructor(declaration)
+                rccIrFunctionOf(declaration)
             }
         }
 
@@ -250,7 +257,11 @@ class AstTreeTranspilation(
         }
 
         override fun visitGetObjectValue(expression: IrGetObjectValue, data: Nothing?): IrExpression {
-            error("IrGetObjectValue is not supported")
+            val builder = pluginContext.irBuiltIns.createIrBuilder(expression.symbol)
+            return with(builder) {
+                rccIrGetObjectValueOf(expression)
+            }
+
         }
 
         override fun visitGetEnumValue(expression: IrGetEnumValue, data: Nothing?): IrExpression {
@@ -300,7 +311,7 @@ class AstTreeTranspilation(
         override fun visitCall(expression: IrCall, data: Nothing?): IrExpression {
             val builder = pluginContext.irBuiltIns.createIrBuilder(expression.symbol)
             return with(builder) {
-                rccIrCallConstructor(expression)
+                rccIrCallOf(expression)
             }
         }
 
@@ -336,9 +347,13 @@ class AstTreeTranspilation(
             error("IrClassReference is not supported")
         }
 
-//        override fun visitConst(expression: IrConst<*>, data: Nothing?): IrExpression {
-//            error("IrConst is not supported")
-//        }
+        override fun visitConst(expression: IrConst, data: Nothing?): IrExpression {
+            val builder = pluginContext.irBuiltIns
+
+            return with(builder) {
+                rccIrConstOf(expression)
+            }
+        }
 
         override fun visitConstantValue(expression: IrConstantValue, data: Nothing?): IrExpression {
             error("IrConstantValue is not supported")
@@ -397,7 +412,10 @@ class AstTreeTranspilation(
         }
 
         override fun visitFunctionExpression(expression: IrFunctionExpression, data: Nothing?): IrExpression {
-            error("IrFunctionExpression is not supported")
+            val builder = pluginContext.irBuiltIns.createIrBuilder(expression.function.symbol)
+            return with(builder) {
+                rccIrFunctionExpressionOf(expression)
+            }
         }
 
         override fun visitGetClass(expression: IrGetClass, data: Nothing?): IrExpression {
@@ -421,15 +439,11 @@ class AstTreeTranspilation(
         }
 
         override fun visitReturn(expression: IrReturn, data: Nothing?): IrExpression {
-            error("IrReturn is not supported")
+            val builder = pluginContext.irBuiltIns.createIrBuilder(expression.returnTargetSymbol)
+            return with(builder) {
+                rccIrReturnOf(expression)
+            }
         }
-
-//        override fun visitReturn(expression: IrReturn, data: Nothing?): IrExpression {
-//            val builder = pluginContext.irBuiltIns.createIrBuilder(expression.returnTargetSymbol)
-//            return with(builder) {
-//                rccIrCallConstructor(expression)
-//            }
-//        }
 
         override fun visitStringConcatenation(expression: IrStringConcatenation, data: Nothing?): IrExpression {
             error("IrStringConcatenation is not supported")
@@ -496,88 +510,122 @@ class AstTreeTranspilation(
         ): IrCall = IrCallImpl.fromSymbolOwner(
             startOffset = UNDEFINED_OFFSET,
             endOffset = UNDEFINED_OFFSET,
-            symbol = pluginContext.listOfRef!!
+            symbol = pluginContext.listOfRef
         ).apply {
             arguments[0] = irVararg(pluginContext.rccIrElementRef.defaultType, elements)
         }
 
-        private fun IrBuilder.rccIrNameConstructor(
+        private fun IrBuilder.rccIrNameOf(
             name: Name
         ): IrConstructorCall = IrConstructorCallImpl.Companion.fromSymbolOwner(
             type = pluginContext.rccIrNameImplRef.defaultType,
             constructorSymbol = pluginContext.rccIrNameImplRef.owner.primaryConstructor!!.symbol,
         ).apply {
-            arguments[0] = irString(name.identifier)
+            // Todo надо испривать
+            arguments[0] = if (name.isSpecial) irString("") else irString(name.identifier)
         }
 
-        private fun IrBuilder.rccIrFqNameConstructor(
+        private fun IrBuilder.rccIrFqNameOf(
             fqName: FqName
         ): IrConstructorCall = IrConstructorCallImpl.Companion.fromSymbolOwner(
             type = pluginContext.rccIrFqNameImplRef.defaultType,
             constructorSymbol = pluginContext.rccIrFqNameImplRef.owner.primaryConstructor!!.symbol,
         ).apply {
             arguments[0] = irString(fqName.asString())
-            arguments[1] = rccIrNameConstructor(fqName.shortName())
+            arguments[1] = rccIrNameOf(fqName.shortName())
         }
 
-        private fun DeclarationIrBuilder.rccIrTypeConstructor(
+        private fun DeclarationIrBuilder.rccIrTypeOf(
             irType: IrType
         ): IrConstructorCall {
             return when (irType) {
                 is IrDynamicType -> error("It is not supported yet IrDynamicType")
                 is IrErrorType -> error("It is not supported yet IrErrorType")
-                is IrSimpleType -> rccIrTypeSimpleConstructor(irType)
+                is IrSimpleType -> rccIrTypeSimpleOf(irType)
             }
         }
 
-        private fun DeclarationIrBuilder.rccIrTypeSimpleConstructor(
+        private fun DeclarationIrBuilder.rccIrTypeSimpleOf(
             irSimpleType: IrSimpleType
         ): IrConstructorCall = IrConstructorCallImpl.Companion.fromSymbolOwner(
             type = pluginContext.rccIrTypeSimpleImplRef.defaultType,
             constructorSymbol = pluginContext.rccIrTypeSimpleImplRef.owner.primaryConstructor!!.symbol,
         ).apply {
-            arguments[0] = rccIrFqNameConstructor(irSimpleType.classFqName!!)
+            arguments[0] = rccIrFqNameOf(irSimpleType.classFqName!!)
         }
 
-        private fun DeclarationIrBuilder.rccIrFunctionConstructor(
+        private fun DeclarationIrBuilder.rccIrFunctionOf(
             irSimpleFunction: IrSimpleFunction,
         ): IrConstructorCall = IrConstructorCallImpl.Companion.fromSymbolOwner(
             type = pluginContext.rccIrFunctionImplRef.defaultType,
             constructorSymbol = pluginContext.rccIrFunctionImplRef.owner.primaryConstructor!!.symbol,
         ).apply {
-            arguments[0] = rccIrFqNameConstructor(irSimpleFunction.fqNameWhenAvailable!!)
-            arguments[1] = rccIrBodyConstructor(irSimpleFunction.body)
+            arguments[0] = rccIrFqNameOf(irSimpleFunction.fqNameWhenAvailable ?: FqName(""))
+            arguments[1] = rccIrBodyOf(irSimpleFunction.body)
         }
 
-        private fun DeclarationIrBuilder.rccIrBodyConstructor(
+        private fun DeclarationIrBuilder.rccIrBodyOf(
             irBody: IrBody?
         ): IrExpression {
             return when (irBody) {
-                is IrBlockBody -> rccIrBodyBlockConstructor(irBody)
+                is IrBlockBody -> rccIrBodyBlockOf(irBody)
                 is IrExpressionBody -> error("It is not supported yet IrExpressionBody")
                 is IrSyntheticBody -> error("It is not supported yet IrSyntheticBody")
-                null -> irNull()
+                null -> irNull()  // Todo: Тело библиотечных функций не видит
             }
         }
 
-        private fun DeclarationIrBuilder.rccIrBodyBlockConstructor(
+        private fun DeclarationIrBuilder.rccIrBodyBlockOf(
             irBody: IrBlockBody
         ): IrConstructorCall = IrConstructorCallImpl.Companion.fromSymbolOwner(
             type = pluginContext.rccIrBodyImplRef.defaultType,
             constructorSymbol = pluginContext.rccIrBodyImplRef.owner.primaryConstructor!!.symbol,
         ).apply {
-            arguments[0] = rccIrElementsOf(
-                irBody.statements.map {
-                    it.accept(this@Visitor, null)
-                }
-            )
+            arguments[0] = rccIrElementsOf(irBody.statements.map { it.accept(this@Visitor, null) })
         }
 
-        private fun DeclarationIrBuilder.rccIrCallConstructor(
-            irCall: IrExpression
+        private fun DeclarationIrBuilder.rccIrCallOf(
+            irCall: IrCall
         ): IrConstructorCall = IrConstructorCallImpl.Companion.fromSymbolOwner(
             type = pluginContext.rccIrCallImplRef.defaultType,
             constructorSymbol = pluginContext.rccIrCallImplRef.owner.primaryConstructor!!.symbol,
+        ).apply {
+            arguments[0] = rccIrFunctionOf(irCall.symbol.owner)
+            arguments[1] = rccIrElementsOf(irCall.arguments.map { it?.accept(this@Visitor, null) ?: irNull() })
+        }
+
+        private fun DeclarationIrBuilder.rccIrFunctionExpressionOf(
+            irFunctionExpression: IrFunctionExpression
+        ): IrConstructorCall = IrConstructorCallImpl.Companion.fromSymbolOwner(
+            type = pluginContext.rccIrFunctionExpressionRef.defaultType,
+            constructorSymbol = pluginContext.rccIrFunctionExpressionRef.owner.primaryConstructor!!.symbol,
+        ).apply {
+            arguments[0] = rccIrFunctionOf(irFunctionExpression.function)
+        }
+
+        private fun DeclarationIrBuilder.rccIrReturnOf(
+            irReturn: IrReturn
+        ): IrConstructorCall = IrConstructorCallImpl.Companion.fromSymbolOwner(
+            type = pluginContext.rccIrReturnImplRef.defaultType,
+            constructorSymbol = pluginContext.rccIrReturnImplRef.owner.primaryConstructor!!.symbol,
+        ).apply {
+
+        }
+
+        private fun DeclarationIrBuilder.rccIrGetObjectValueOf(
+            irGetObjectValue: IrGetObjectValue,
+        ): IrConstructorCall = IrConstructorCallImpl.Companion.fromSymbolOwner(
+            type = pluginContext.rccIrGetObjectValueImplRef.defaultType,
+            constructorSymbol = pluginContext.rccIrGetObjectValueImplRef.owner.primaryConstructor!!.symbol,
+        ).apply {
+
+        }
+
+        private fun IrBuiltIns.rccIrConstOf(
+            irConst: IrConst,
+        ): IrConstructorCall = IrConstructorCallImpl.Companion.fromSymbolOwner(
+            type = pluginContext.rccIrConstImplRef.defaultType,
+            constructorSymbol = pluginContext.rccIrConstImplRef.owner.primaryConstructor!!.symbol,
         ).apply {
 
         }

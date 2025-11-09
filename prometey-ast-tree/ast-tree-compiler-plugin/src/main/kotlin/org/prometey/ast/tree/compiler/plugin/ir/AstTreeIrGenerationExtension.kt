@@ -10,10 +10,11 @@ class AstTreeIrGenerationExtension : IrGenerationExtension {
         moduleFragment: IrModuleFragment,
         pluginContext: IrPluginContext
     ) {
+        val context = AstTreePluginContext(pluginContext)
         val elementContainer = AstTreeElementContainer().apply {
             lower(moduleFragment)
         }
 
-        AstTreeBodyGenerator(pluginContext).lower(moduleFragment, elementContainer)
+        AstTreeBodyGenerator(context).lower(moduleFragment, elementContainer)
     }
 }

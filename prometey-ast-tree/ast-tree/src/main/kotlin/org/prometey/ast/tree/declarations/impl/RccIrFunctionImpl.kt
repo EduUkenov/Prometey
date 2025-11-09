@@ -9,14 +9,13 @@ import org.prometey.ast.tree.visitor.RccIrVisitor
 @PublishedApi
 internal class RccIrFunctionImpl(
     override val fqName: RccFqName,
-    override val body: RccIrBody,
+    override val body: RccIrBody?,
 ) : RccIrFunction {
-    override val parametersType: List<RccIrType>
+    override val typeParameters: List<RccIrType>
         get() = TODO("Not yet implemented")
-    override val returnType: RccIrType
-        get() = TODO("Not yet implemented")
-    override val extensionType: RccIrType?
-        get() = TODO("Not yet implemented")
+
+    override val returnType: RccIrType get() = TODO("Not yet implemented")
+    override val extensionType: RccIrType? get() = TODO("Not yet implemented")
 
     override fun <R> accept(visitor: RccIrVisitor<R>): R = visitor.visitIrFunction(this)
 }
