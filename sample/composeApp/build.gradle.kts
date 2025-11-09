@@ -36,6 +36,9 @@ kotlin {
 			implementation(libs.androidx.activity.compose)
 		}
 		commonMain.dependencies {
+			implementation(libs.ktor.client.core)
+			implementation(libs.ktor.client.okhttp)
+
 			implementation(projects.prometeyDescription.description)
 			implementation(projects.prometeyDescription.descriptionAnnotation)
 

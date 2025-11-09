@@ -60,9 +60,20 @@ object AstTreeClassIds {
 
     val rccIrCall = ClassId(astTreePackageExpression, Name.identifier("RccIrCall"))
     val rccIrCallImpl = ClassId(astTreePackageExpressionImpl, Name.identifier("RccIrCallImpl"))
+
+    val rccIrFunctionExpression = ClassId(astTreePackageExpression, Name.identifier("RccIrFunctionExpression"))
+    val rccIrFunctionExpressionImpl = ClassId(astTreePackageExpressionImpl, Name.identifier("RccIrFunctionExpressionImpl"))
+
+    val rccIrReturn = ClassId(astTreePackageExpression, Name.identifier("RccIrReturn"))
+    val rccIrReturnImpl = ClassId(astTreePackageExpressionImpl, Name.identifier("RccIrReturnImpl"))
+
+    val rccIrGetObjectValue = ClassId(astTreePackageExpression, Name.identifier("RccIrGetObjectValue"))
+    val rccIrGetObjectValueImpl = ClassId(astTreePackageExpressionImpl, Name.identifier("RccIrGetObjectValueImpl"))
+
+    val rccIrConst = ClassId(astTreePackageExpression, Name.identifier("RccIrConst"))
+    val rccIrConstImpl = ClassId(astTreePackageExpressionImpl, Name.identifier("RccIrConstImpl"))
 }
 
 object AstTreeCallableIds {
-    val a = listOf(1, 2)
     val listOfCallableId = CallableId(FqName("kotlin.collections"), Name.identifier("listOf"))
 }

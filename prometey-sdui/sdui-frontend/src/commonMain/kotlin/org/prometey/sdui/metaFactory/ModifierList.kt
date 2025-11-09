@@ -1,4 +1,4 @@
-package org.prometey.sdui
+package org.prometey.sdui.metaFactory
 
 import androidx.compose.ui.CombinedModifier
 import androidx.compose.ui.Modifier

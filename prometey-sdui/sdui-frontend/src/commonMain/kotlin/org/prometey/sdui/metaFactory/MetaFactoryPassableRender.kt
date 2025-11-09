@@ -1,4 +1,4 @@
-package org.prometey.sdui
+package org.prometey.sdui.metaFactory
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -13,15 +13,14 @@ import org.prometey.ast.RccApplication
 class MetaFactoryPassableRender(
     val application: RccApplication
 ) {
-
     fun metaFactory(): @Composable () -> Unit = {
         application.find<@Composable () -> Unit>("androidx.compose.foundation.layout.Column")?.let {
             Column(
-                modifier = Modifier
-                    .background(Color.Red)
+                modifier = Modifier.Companion
+                    .background(Color.Companion.Red)
                     .size(200.dp)
             ) {
-                it.declarate.invoke(Parameter)
+                it.declarate.invoke(Parameter.Companion)
             }
         }
     }

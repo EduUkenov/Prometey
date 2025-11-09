@@ -7,7 +7,6 @@ plugins {
 	alias(libs.plugins.kotlinSerialization)
 	alias(libs.plugins.composeCompiler)
 	alias(libs.plugins.composeMultiplatform)
-	//id("kotlinmeta.gradle.plugin") version "0.0.1"
 }
 
 kotlin {
